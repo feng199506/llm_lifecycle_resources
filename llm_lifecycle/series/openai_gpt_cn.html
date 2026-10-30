@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GPT / OpenAI（闭源 API）</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="openai_gpt_cn.md">openai_gpt_cn.md</a></div>
+<h1 id="gpt-openai-闭源-api">GPT / OpenAI（闭源 API）</h1>
+<p>检索日 <strong>2026-10-30</strong>。开放程度：无权重、无训练代码、无训练数据。本专题保存公开论文、系统卡、API 文档与工程示例。系统卡在 <code>_local_only</code>，<strong>不可</strong>打入公开 Release。<br>
+下列实现细节若未在系统卡/论文出现，一律标 <strong>推测或未知</strong>。不得把 llama.cpp / vLLM 示例写成 GPT 的真实实现。</p>
+<table><thead><tr><th>完整名称</th><th>类型</th><th>发布时间（公开确认）</th><th>资料</th></tr></thead><tbody><tr><td>GPT-3 (<code>davinci</code> 等)</td><td>基础</td><td>2020-05-28 论文 <a href="../../_public/papers/llm/2005_14165_GPT3.pdf" title="本地 PDF">2005.14165</a></td><td><a href="../../_public/papers/llm/2005_14165_GPT3.pdf"><code>_public/papers/llm/2005_14165_GPT3.pdf</code></a></td></tr><tr><td>GPT-4</td><td>多模态（报告）</td><td>2023-03-27 论文 <a href="../../_public/papers/llm/2303_08774_GPT4.pdf" title="本地 PDF">2303.08774</a></td><td>技术报告；权重未公开</td></tr><tr><td>GPT-4o</td><td>多模态 omni</td><td>系统卡 2024-08-08</td><td><a href="../../_local_only/papers/llm/openai_gpt4o_system_card.pdf"><code>_local_only/papers/llm/openai_gpt4o_system_card.pdf</code></a></td></tr><tr><td>OpenAI o1 / o1-mini</td><td>推理</td><td>系统卡 2024-12-05</td><td>大规模 RL + CoT；<strong>公开确认</strong>来自系统卡，训练超参未知</td></tr><tr><td>GPT-5（gpt-5-main / gpt-5-thinking）</td><td>统一系统（快模型+思考+路由）</td><td>介绍页 2025-08-07；系统卡 2025-08-13</td><td><code>_local_only/.../openai_gpt5_system_card.pdf</code></td></tr></tbody></table>
+<p>代码模型、结构化输出、工具调用：以检索日官方 API 文档为准（<code>docs_html/openai_api/</code>，镜像可能不完整）。<br>
+评测：只摘系统卡/技术报告中的设定，不与开源模型分数横比。</p>
+</body></html>

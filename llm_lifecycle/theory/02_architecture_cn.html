@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>2 模型架构</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+<script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"],["$$","$$"]]}};</script>
+<script defer src="../../_offline_libs/mathjax-3.2.2/es5/tex-mml-chtml.js"></script>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="02_architecture_cn.md">02_architecture_cn.md</a></div>
+<h1 id="2-模型架构">2 模型架构</h1>
+<h2 id="transformer-公开确认-1706-03762">Transformer（公开确认：<a href="../../_public/papers/llm/1706_03762_Attention_is_All_You_Need.pdf" title="本地 PDF">1706.03762</a>）</h2>
+<p>编码器-解码器原文；GPT 家族用解码器 only。块结构：注意力 → 残差 → 归一化 → FFN → 残差。现代 LLM 多为 <strong>Pre-Norm</strong>（报告常见，具体以各卡为准）。</p>
+<p>多头注意力：</p>
+<p>\[
+\mathrm{Attn}(Q,K,V)=\mathrm{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+\]</p>
+<h2 id="位置编码">位置编码</h2>
+<ul><li>绝对正弦：原文<br></li><li>RoPE：<a href="../../_public/papers/llm/2104_09864_RoFormer.pdf" title="本地 PDF">2104.09864</a>（RoFormer），Llama/Qwen/DeepSeek 报告广泛采用（<strong>公开确认到报告</strong>）<br></li><li>ALiBi：<a href="../../_public/papers/llm/2108_12409_ALiBi.pdf" title="本地 PDF">2108.12409</a><br></li><li>YaRN：<a href="../../_public/papers/llm/2309_00071_YaRN.pdf" title="本地 PDF">2309.00071</a> 长上下文外推<br></li></ul>
+<h2 id="归一化与激活">归一化与激活</h2>
+<p>LayerNorm <a href="../../_public/papers/llm/1607_06450_LayerNorm.pdf" title="本地 PDF">1607.06450</a>；RMSNorm <a href="../../_public/papers/llm/1910_07467_RMSNorm.pdf" title="本地 PDF">1910.07467</a>。FFN 常用 SwiGLU（<a href="../../_public/papers/llm/2002_05202_GLU_variants.pdf" title="本地 PDF">2002.05202</a>）。GQA：<a href="../../_public/papers/llm/2305_13245_GQA.pdf" title="本地 PDF">2305.13245</a>。</p>
+<h2 id="dense-moe">Dense / MoE</h2>
+<p>Switch Transformer <a href="../../_public/papers/llm/2101_03961_Switch_Transformer.pdf" title="本地 PDF">2101.03961</a>；Mixtral <a href="../../_public/papers/llm/2401_04088_Mixtral.pdf" title="本地 PDF">2401.04088</a>。DeepSeek-V3 / Llama 4 / MiniMax-M2 / Kimi K2 为 MoE（各卡）。路由与负载均衡损失以各论文公式为准；工程实现（Megatron/DeepSpeed）是 <strong>第三方/框架</strong>，不是某闭源模型源码。</p>
+<h2 id="长上下文与-kv-cache">长上下文与 KV cache</h2>
+<p>Prefill 写满 K/V；Decode 逐步追加。显存大致随 <code>layers × batch × seq × kv_heads × head_dim × 2(K,V) × dtype</code> 增长（估算，<strong>未在本机测</strong>）。MLA（DeepSeek-V2 论文）压缩 KV，属该系列公开确认。</p>
+<h2 id="多模态">多模态</h2>
+<p>早期融合 / 视觉编码器 + 投影 + LLM。GPT-4o、Gemini、Llama 4、Qwen-VL、Gemma 3、Pixtral、Phi-4-multimodal、GLM-4V：以各自报告为准，不要画一张「通用多模态图」当成某厂实现。</p>
+</body></html>

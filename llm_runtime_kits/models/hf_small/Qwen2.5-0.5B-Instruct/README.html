@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Qwen2.5-0.5B-Instruct</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="README.md">README.md</a></div>
+<hr>
+<p>license: apache-2.0
+license_link: <a href="https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/blob/main/LICENSE">https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/blob/main/LICENSE</a>
+language:</p>
+<ul><li>en</li></ul>
+<p>pipeline_tag: text-generation
+base_model: Qwen/Qwen2.5-0.5B
+tags:</p>
+<ul><li>chat</li></ul>
+<p>library_name: transformers
+---</p>
+<h1 id="qwen2-5-0-5b-instruct">Qwen2.5-0.5B-Instruct</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Qwen2.5 is the latest series of Qwen large language models. For Qwen2.5, we release a number of base language models and instruction-tuned language models ranging from 0.5 to 72 billion parameters. Qwen2.5 brings the following improvements upon Qwen2:</p>
+<ul><li>Significantly <strong>more knowledge</strong> and has greatly improved capabilities in <strong>coding</strong> and <strong>mathematics</strong>, thanks to our specialized expert models in these domains.</li><li>Significant improvements in <strong>instruction following</strong>, <strong>generating long texts</strong> (over 8K tokens), <strong>understanding structured data</strong> (e.g, tables), and <strong>generating structured outputs</strong> especially JSON. <strong>More resilient to the diversity of system prompts</strong>, enhancing role-play implementation and condition-setting for chatbots.</li><li><strong>Long-context Support</strong> up to 128K tokens and can generate up to 8K tokens.</li><li><strong>Multilingual support</strong> for over 29 languages, including Chinese, English, French, Spanish, Portuguese, German, Italian, Russian, Japanese, Korean, Vietnamese, Thai, Arabic, and more. </li></ul>
+<p><strong>This repo contains the instruction-tuned 0.5B Qwen2.5 model</strong>, which has the following features:</p>
+<ul><li>Type: Causal Language Models</li><li>Training Stage: Pretraining &amp; Post-training</li><li>Architecture: transformers with RoPE, SwiGLU, RMSNorm, Attention QKV bias and tied word embeddings</li><li>Number of Parameters: 0.49B</li><li>Number of Paramaters (Non-Embedding): 0.36B</li><li>Number of Layers: 24</li><li>Number of Attention Heads (GQA): 14 for Q and 2 for KV</li><li>Context Length: Full 32,768 tokens and generation 8192 tokens</li></ul>
+<p>For more details, please refer to our <a href="https://qwenlm.github.io/blog/qwen2.5/">blog</a>, <a href="https://github.com/QwenLM/Qwen2.5">GitHub</a>, and <a href="https://qwen.readthedocs.io/en/latest/">Documentation</a>.</p>
+<h2 id="requirements">Requirements</h2>
+<p>The code of Qwen2.5 has been in the latest Hugging face <code>transformers</code> and we advise you to use the latest version of <code>transformers</code>.</p>
+<p>With <code>transformers&lt;4.37.0</code>, you will encounter the following error:</p>
+<pre><code>KeyError: &#x27;qwen2&#x27;</code></pre>
+<h2 id="quickstart">Quickstart</h2>
+<p>Here provides a code snippet with <code>apply_chat_template</code> to show you how to load the tokenizer and model and how to generate contents.</p>
+<pre><code>from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model_name = &quot;Qwen/Qwen2.5-0.5B-Instruct&quot;
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    torch_dtype=&quot;auto&quot;,
+    device_map=&quot;auto&quot;
+)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+prompt = &quot;Give me a short introduction to large language model.&quot;
+messages = [
+    {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;You are Qwen, created by Alibaba Cloud. You are a helpful assistant.&quot;},
+    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: prompt}
+]
+text = tokenizer.apply_chat_template(
+    messages,
+    tokenize=False,
+    add_generation_prompt=True
+)
+model_inputs = tokenizer([text], return_tensors=&quot;pt&quot;).to(model.device)
+
+generated_ids = model.generate(
+    **model_inputs,
+    max_new_tokens=512
+)
+generated_ids = [
+    output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
+]
+
+response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]</code></pre>
+<h2 id="evaluation-performance">Evaluation &amp; Performance</h2>
+<p>Detailed evaluation results are reported in this <a href="https://qwenlm.github.io/blog/qwen2.5/">📑 blog</a>.</p>
+<p>For requirements on GPU memory and the respective throughput, see results <a href="https://qwen.readthedocs.io/en/latest/benchmark/speed_benchmark.html">here</a>.</p>
+<h2 id="citation">Citation</h2>
+<p>If you find our work helpful, feel free to give us a cite.</p>
+<pre><code>@misc{qwen2.5,
+    title = {Qwen2.5: A Party of Foundation Models},
+    url = {https://qwenlm.github.io/blog/qwen2.5/},
+    author = {Qwen Team},
+    month = {September},
+    year = {2024}
+}
+
+@article{qwen2,
+      title={Qwen2 Technical Report}, 
+      author={An Yang and Baosong Yang and Binyuan Hui and Bo Zheng and Bowen Yu and Chang Zhou and Chengpeng Li and Chengyuan Li and Dayiheng Liu and Fei Huang and Guanting Dong and Haoran Wei and Huan Lin and Jialong Tang and Jialin Wang and Jian Yang and Jianhong Tu and Jianwei Zhang and Jianxin Ma and Jin Xu and Jingren Zhou and Jinze Bai and Jinzheng He and Junyang Lin and Kai Dang and Keming Lu and Keqin Chen and Kexin Yang and Mei Li and Mingfeng Xue and Na Ni and Pei Zhang and Peng Wang and Ru Peng and Rui Men and Ruize Gao and Runji Lin and Shijie Wang and Shuai Bai and Sinan Tan and Tianhang Zhu and Tianhao Li and Tianyu Liu and Wenbin Ge and Xiaodong Deng and Xiaohuan Zhou and Xingzhang Ren and Xinyu Zhang and Xipin Wei and Xuancheng Ren and Yang Fan and Yang Yao and Yichang Zhang and Yu Wan and Yunfei Chu and Yuqiong Liu and Zeyu Cui and Zhenru Zhang and Zhihao Fan},
+      journal={arXiv preprint arXiv:2407.10671},
+      year={2024}
+}</code></pre>
+</body></html>

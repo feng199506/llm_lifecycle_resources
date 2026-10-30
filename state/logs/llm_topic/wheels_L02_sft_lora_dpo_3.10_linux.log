@@ -1,0 +1,267 @@
+$ /usr/bin/python3 /root/linux_python_offline_resources/scripts/pip.pyz download --dest /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse --python-version 3.10 --implementation cp --abi cp310 --abi abi3 --abi none --only-binary :all: --cache-dir /root/llm_lifecycle_resources/state/pip_cache --disable-pip-version-check --timeout 120 --retries 4 --platform manylinux2014_x86_64 --platform manylinux_2_17_x86_64 --platform manylinux_2_24_x86_64 --platform manylinux_2_27_x86_64 --platform manylinux_2_28_x86_64 --platform manylinux_2_31_x86_64 --platform manylinux_2_34_x86_64 --platform manylinux_2_35_x86_64 --platform linux_x86_64 --platform any --extra-index-url https://download.pytorch.org/whl/cpu -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt
+Looking in indexes: https://pypi.org/simple, https://download.pytorch.org/whl/cpu
+Collecting torch (from -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 1))
+  Using cached torch-2.14.1%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (37 kB)
+Collecting transformers>=4.44 (from -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading transformers-5.20.2-py3-none-any.whl.metadata (31 kB)
+Collecting peft>=0.14 (from -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 3))
+  Downloading peft-0.21.2-py3-none-any.whl.metadata (15 kB)
+Collecting trl>=0.14 (from -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 4))
+  Downloading trl-1.14.2-py3-none-any.whl.metadata (12 kB)
+Collecting datasets>=3.0 (from -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading datasets-5.1.0-py3-none-any.whl.metadata (24 kB)
+Collecting accelerate>=1.0 (from -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 6))
+  Downloading accelerate-1.15.0-py3-none-any.whl.metadata (19 kB)
+Collecting safetensors (from -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 7))
+  Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+Collecting sentencepiece (from -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 8))
+  Downloading sentencepiece-0.2.2-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (33 kB)
+Collecting protobuf (from -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 9))
+  Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Collecting filelock (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 1))
+  Using cached filelock-4.1.0-py3-none-any.whl.metadata (2.0 kB)
+Collecting typing-extensions>=4.10.0 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 1))
+  Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting setuptools>=77.0.3 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 1))
+  Using cached setuptools-84.2.1-py3-none-any.whl.metadata (6.6 kB)
+Collecting sympy>=1.13.3 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 1))
+  Using cached sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+Collecting networkx>=2.5.1 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 1))
+  Using cached networkx-3.4.2-py3-none-any.whl.metadata (6.3 kB)
+Collecting jinja2 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 1))
+  Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting fsspec>=0.8.5 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 1))
+  Using cached fsspec-2026.9.0-py3-none-any.whl.metadata (10 kB)
+Collecting huggingface-hub<3.0,>=1.31.0 (from transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading huggingface_hub-2.4.0-py3-none-any.whl.metadata (16 kB)
+Collecting numpy>=1.17 (from transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Using cached numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+Collecting packaging>=20.0 (from transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pyyaml>=5.1 (from transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting regex>=2025.10.22 (from transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading regex-2026.9.29-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (40 kB)
+Collecting tokenizers<0.24.0,>=0.23.1 (from transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading tokenizers-0.23.3-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (9.8 kB)
+Collecting typer (from transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading typer-0.27.3-py3-none-any.whl.metadata (16 kB)
+Collecting tqdm>=4.60 (from transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+Collecting click<9.0.0,>=8.4.2 (from huggingface-hub<3.0,>=1.31.0->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting hf-xet<2.0.0,>=1.6.0 (from huggingface-hub<3.0,>=1.31.0->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading hf_xet-1.7.1-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Collecting httpx2<3,>=2.0.0 (from huggingface-hub<3.0,>=1.31.0->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading httpx2-2.14.0-py3-none-any.whl.metadata (10 kB)
+Collecting anyio>=4.10 (from httpx2<3,>=2.0.0->huggingface-hub<3.0,>=1.31.0->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+Collecting httpcore2==2.14.0 (from httpx2<3,>=2.0.0->huggingface-hub<3.0,>=1.31.0->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading httpcore2-2.14.0-py3-none-any.whl.metadata (27 kB)
+Collecting idna>=3.18 (from httpx2<3,>=2.0.0->huggingface-hub<3.0,>=1.31.0->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting truststore>=0.10 (from httpx2<3,>=2.0.0->huggingface-hub<3.0,>=1.31.0->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading truststore-0.10.5-py3-none-any.whl.metadata (4.5 kB)
+Collecting h11>=0.16 (from httpcore2==2.14.0->httpx2<3,>=2.0.0->huggingface-hub<3.0,>=1.31.0->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting psutil (from peft>=0.14->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 3))
+  Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+Collecting pyarrow>=24.0.0 (from datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading pyarrow-25.0.1-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Collecting dill<0.4.2,>=0.3.0 (from datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading dill-0.4.1-py3-none-any.whl.metadata (10 kB)
+Collecting pandas (from datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (91 kB)
+Collecting xxhash (from datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading xxhash-4.0.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (17 kB)
+Collecting multiprocess<0.70.20 (from datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading multiprocess-0.70.19-py310-none-any.whl.metadata (7.5 kB)
+Collecting fsspec>=0.8.5 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 1))
+  Downloading fsspec-2026.7.0-py3-none-any.whl.metadata (10 kB)
+Collecting aiohttp!=4.0.0a0,!=4.0.0a1 (from fsspec[http]<=2026.7.0,>=2023.1.0->datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading aiohttp-3.14.5-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Collecting aiohappyeyeballs>=2.5.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.7.0,>=2023.1.0->datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+Collecting aiosignal>=1.4.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.7.0,>=2023.1.0->datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting attrs>=17.3.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.7.0,>=2023.1.0->datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting frozenlist>=1.1.1 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.7.0,>=2023.1.0->datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading frozenlist-1.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+Collecting multidict<8.0,>=4.5 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.7.0,>=2023.1.0->datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading multidict-7.1.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (6.2 kB)
+Collecting propcache>=0.2.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.7.0,>=2023.1.0->datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading propcache-0.5.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (25 kB)
+Collecting yarl<2.0,>=1.25.1 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.7.0,>=2023.1.0->datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading yarl-1.25.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (111 kB)
+Collecting mpmath<1.4,>=1.1.0 (from sympy>=1.13.3->torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 1))
+  Using cached mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+Collecting MarkupSafe>=2.0 (from jinja2->torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 1))
+  Using cached markupsafe-3.0.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Collecting python-dateutil>=2.8.2 (from pandas->datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading python_dateutil-3.0.0-py2.py3-none-any.whl.metadata (8.2 kB)
+Collecting pytz>=2020.1 (from pandas->datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading pytz-2026.6-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzdata>=2022.7 (from pandas->datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting six>=1.6 (from python-dateutil>=2.8.2->pandas->datasets>=3.0->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 5))
+  Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting shellingham>=1.3.0 (from typer->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting rich>=13.8.0 (from typer->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Collecting annotated-doc>=0.0.2 (from typer->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=13.8.0->typer->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich>=13.8.0->typer->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers>=4.44->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Using cached torch-2.14.1%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl (196.2 MB)
+Downloading transformers-5.20.2-py3-none-any.whl (12.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 78.3 MB/s  0:00:00
+
+Downloading huggingface_hub-2.4.0-py3-none-any.whl (857 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 857.0/857.0 kB 24.8 MB/s  0:00:00
+
+Downloading click-8.5.0-py3-none-any.whl (125 kB)
+Downloading hf_xet-1.7.1-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 65.7 MB/s  0:00:00
+
+Downloading httpx2-2.14.0-py3-none-any.whl (96 kB)
+Downloading httpcore2-2.14.0-py3-none-any.whl (84 kB)
+Downloading tokenizers-0.23.3-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.4/3.4 MB 51.4 MB/s  0:00:00
+
+Downloading peft-0.21.2-py3-none-any.whl (835 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 835.4/835.4 kB 27.6 MB/s  0:00:00
+
+Downloading trl-1.14.2-py3-none-any.whl (927 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 927.2/927.2 kB 27.0 MB/s  0:00:00
+
+Downloading datasets-5.1.0-py3-none-any.whl (604 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 604.4/604.4 kB 10.8 MB/s  0:00:00
+
+Downloading dill-0.4.1-py3-none-any.whl (120 kB)
+Downloading fsspec-2026.7.0-py3-none-any.whl (206 kB)
+Downloading multiprocess-0.70.19-py310-none-any.whl (134 kB)
+Downloading accelerate-1.15.0-py3-none-any.whl (394 kB)
+Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+Downloading sentencepiece-0.2.2-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (1.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 32.1 MB/s  0:00:00
+
+Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+Downloading aiohttp-3.14.5-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 25.9 MB/s  0:00:00
+
+Downloading multidict-7.1.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (464 kB)
+Downloading yarl-1.25.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (118 kB)
+Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Downloading anyio-4.15.1-py3-none-any.whl (132 kB)
+Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+Using cached filelock-4.1.0-py3-none-any.whl (133 kB)
+Downloading frozenlist-1.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (219 kB)
+Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading idna-3.20-py3-none-any.whl (69 kB)
+Using cached networkx-3.4.2-py3-none-any.whl (1.7 MB)
+Using cached numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading propcache-0.5.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (224 kB)
+Downloading pyarrow-25.0.1-cp310-cp310-manylinux_2_28_x86_64.whl (50.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50.1/50.1 MB 76.5 MB/s  0:00:00
+
+Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (770 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 770.3/770.3 kB 21.7 MB/s  0:00:00
+
+Downloading regex-2026.9.29-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (797 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 797.6/797.6 kB 21.8 MB/s  0:00:00
+
+Using cached setuptools-84.2.1-py3-none-any.whl (876 kB)
+Using cached sympy-1.14.0-py3-none-any.whl (6.3 MB)
+Using cached mpmath-1.3.0-py3-none-any.whl (536 kB)
+Downloading tqdm-4.70.1-py3-none-any.whl (80 kB)
+Downloading truststore-0.10.5-py3-none-any.whl (19 kB)
+Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Using cached markupsafe-3.0.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (20 kB)
+Downloading pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 70.4 MB/s  0:00:00
+
+Downloading python_dateutil-3.0.0-py2.py3-none-any.whl (94 kB)
+Downloading pytz-2026.6-py2.py3-none-any.whl (506 kB)
+Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Downloading typer-0.27.3-py3-none-any.whl (123 kB)
+Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 43.6 MB/s  0:00:00
+
+Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Downloading xxhash-4.0.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (249 kB)
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/torch-2.14.1+cpu-cp310-cp310-manylinux_2_28_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/transformers-5.20.2-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/huggingface_hub-2.4.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/click-8.5.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/hf_xet-1.7.1-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/httpx2-2.14.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/httpcore2-2.14.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/tokenizers-0.23.3-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/peft-0.21.2-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/trl-1.14.2-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/datasets-5.1.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/dill-0.4.1-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/fsspec-2026.7.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/multiprocess-0.70.19-py310-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/accelerate-1.15.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/sentencepiece-0.2.2-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/aiohttp-3.14.5-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/multidict-7.1.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/yarl-1.25.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/aiohappyeyeballs-2.7.1-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/aiosignal-1.4.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/anyio-4.15.1-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/attrs-26.1.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/filelock-4.1.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/frozenlist-1.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/h11-0.16.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/idna-3.20-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/networkx-3.4.2-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/packaging-26.3-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/propcache-0.5.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/pyarrow-25.0.1-cp310-cp310-manylinux_2_28_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/regex-2026.9.29-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/setuptools-84.2.1-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/sympy-1.14.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/mpmath-1.3.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/tqdm-4.70.1-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/truststore-0.10.5-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/typing_extensions-4.16.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/jinja2-3.1.6-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/markupsafe-3.0.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/python_dateutil-3.0.0-py2.py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/pytz-2026.6-py2.py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/six-1.17.0-py2.py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/tzdata-2026.6-py2.py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/typer-0.27.3-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/annotated_doc-0.0.5-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/rich-15.0.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/pygments-2.21.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/markdown_it_py-4.2.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/mdurl-0.1.2-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/shellingham-1.5.4-py2.py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L02_sft_lora_dpo/environments/py310_linux/wheelhouse/xxhash-4.0.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded torch transformers huggingface-hub click hf-xet httpx2 httpcore2 tokenizers peft trl datasets dill fsspec multiprocess accelerate safetensors sentencepiece protobuf aiohttp multidict yarl aiohappyeyeballs aiosignal anyio attrs filelock frozenlist h11 idna networkx numpy packaging propcache pyarrow pyyaml regex setuptools sympy mpmath tqdm truststore typing-extensions jinja2 MarkupSafe pandas python-dateutil pytz six tzdata psutil typer annotated-doc rich pygments markdown-it-py mdurl shellingham xxhash
+
+[exit 0]

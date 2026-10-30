@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>5 后训练</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="05_posttraining_cn.md">05_posttraining_cn.md</a></div>
+<h1 id="5-后训练">5 后训练</h1>
+<p>只把写进原论文/官方报告的内容标 <strong>公开确认</strong>。TRL/LLaMA-Factory 默认配置是框架行为。</p>
+<table><thead><tr><th>方法</th><th>公开确认文献</th><th>本库实践</th><th>注意</th></tr></thead><tbody><tr><td>SFT</td><td>InstructGPT <a href="../../_public/papers/llm/2203_02155_InstructGPT.pdf" title="本地 PDF">2203.02155</a>；Self-Instruct <a href="../../_public/papers/llm/2212_10560_Self_Instruct.pdf" title="本地 PDF">2212.10560</a></td><td>L02 合成指令 JSONL</td><td>小模型会过拟合</td></tr><tr><td>LoRA</td><td><a href="../../_public/papers/llm/2106_09685_LoRA.pdf" title="本地 PDF">2106.09685</a></td><td>L02</td><td>秩、α、目标模块是超参</td></tr><tr><td>QLoRA</td><td><a href="../../_public/papers/llm/2305_14314_QLoRA.pdf" title="本地 PDF">2305.14314</a></td><td>文档级；CPU 套件不强制 4bit 训练</td><td>bitsandbytes 主 Linux+CUDA</td></tr><tr><td>偏好数据 / RM</td><td>InstructGPT</td><td>示意成对数据</td><td>无人类标注库</td></tr><tr><td>DPO</td><td><a href="../../_public/papers/llm/2305_18290_DPO.pdf" title="本地 PDF">2305.18290</a></td><td>L02 缩小</td><td>参考模型与 β 要记录</td></tr><tr><td>PPO</td><td><a href="../../_public/papers/llm/1707_06347_PPO.pdf" title="本地 PDF">1707.06347</a>；RLHF 应用见 InstructGPT</td><td>不跑全量 PPO</td><td>价值模型、KL 系数未公开者未知</td></tr><tr><td>GRPO</td><td>DeepSeekMath <a href="../../_public/papers/llm/2402_03300_DeepSeekMath.pdf" title="本地 PDF">2402.03300</a>；R1 <a href="../../_public/papers/llm/2501_12948_DeepSeekR1.pdf" title="本地 PDF">2501.12948</a> 引用</td><td>源码包 verl/OpenRLHF</td><td>本轮不训练</td></tr><tr><td>推理能力训练</td><td>o1 系统卡；R1 论文</td><td>蒸馏小模型可选</td><td>o1 实现未知</td></tr><tr><td>蒸馏</td><td>Hinton <a href="../../_public/papers/llm/1503_02531_Distillation.pdf" title="本地 PDF">1503.02531</a>；R1 蒸馏设定</td><td>R1-Distill-Qwen-1.5B GGUF（第三方量化）</td><td></td></tr><tr><td>拒绝采样</td><td>多篇对齐论文提及</td><td>不实现完整流水线</td><td></td></tr></tbody></table>
+<p>Constitutional AI <a href="../../_public/papers/llm/2212_08073_Constitutional_AI.pdf" title="本地 PDF">2212.08073</a> 是 Claude 系列公开对齐方法之一，不是 Claude 4 的完整配方。</p>
+</body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HumanEval: Hand-Written Evaluation Set</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="HumanEval_README.md">HumanEval_README.md</a></div>
+<h1 id="humaneval-hand-written-evaluation-set">HumanEval: Hand-Written Evaluation Set </h1>
+<blockquote><strong>Deprecated and unmaintained:</strong> This repository is no longer maintained and is provided for historical reference, without ongoing support or updates. Use it at your own risk.</blockquote>
+<p>This is an evaluation harness for the HumanEval problem solving dataset
+described in the paper "[Evaluating Large Language Models Trained on
+Code](<a href="https://arxiv.org/abs/2107.03374">https://arxiv.org/abs/2107.03374</a>)".</p>
+<h2 id="installation">Installation</h2>
+<p>Make sure to use python 3.7 or later:</p>
+<pre><code>$ conda create -n codex python=3.7
+$ conda activate codex</code></pre>
+<p>Check out and install this repository:</p>
+<pre><code>$ git clone https://github.com/openai/human-eval
+$ pip install -e human-eval</code></pre>
+<h2 id="usage">Usage</h2>
+<p>**This program exists to run untrusted model-generated code. Users are strongly
+encouraged not to do so outside of a robust security sandbox. The [execution
+call](<a href="https://github.com/openai/human-eval/blob/master/human_eval/execution.py#L48-L58">https://github.com/openai/human-eval/blob/master/human_eval/execution.py#L48-L58</a>)
+in <code>execution.py</code> is deliberately commented out to ensure users read this
+disclaimer before running code in a potentially unsafe manner. See the comment in
+<code>execution.py</code> for more information and instructions.**</p>
+<p>After following the above instructions to enable execution, generate samples
+and save them in the following JSON Lines (jsonl) format, where each sample is
+formatted into a single line like so:</p>
+<pre><code>{&quot;task_id&quot;: &quot;Corresponding HumanEval task ID&quot;, &quot;completion&quot;: &quot;Completion only without the prompt&quot;}</code></pre>
+<p>We provide <code>example_problem.jsonl</code> and <code>example_solutions.jsonl</code> under <code>data</code>
+to illustrate the format and help with debugging.</p>
+<p>Here is nearly functional example code (you just have to provide
+<code>generate_one_completion</code> to make it work) that saves generated completions to
+<code>samples.jsonl</code>.</p>
+<pre><code>from human_eval.data import write_jsonl, read_problems
+
+problems = read_problems()
+
+num_samples_per_task = 200
+samples = [
+    dict(task_id=task_id, completion=generate_one_completion(problems[task_id][&quot;prompt&quot;]))
+    for task_id in problems
+    for _ in range(num_samples_per_task)
+]
+write_jsonl(&quot;samples.jsonl&quot;, samples)</code></pre>
+<p>To evaluate the samples, run</p>
+<pre><code>$ evaluate_functional_correctness samples.jsonl
+Reading samples...
+32800it [00:01, 23787.50it/s]
+Running test suites...
+100%|...| 32800/32800 [16:11&lt;00:00, 33.76it/s]
+Writing results to samples.jsonl_results.jsonl...
+100%|...| 32800/32800 [00:00&lt;00:00, 42876.84it/s]
+{&#x27;pass@1&#x27;: ..., &#x27;pass@10&#x27;: ..., &#x27;pass@100&#x27;: ...}</code></pre>
+<p>This script provides more fine-grained information in a new file ending in
+<code>&lt;input_path&gt;_results.jsonl</code>. Each row now contains whether the completion
+<code>passed</code> along with the execution <code>result</code> which is one of "passed", "timed
+out", or "failed".</p>
+<p>As a quick sanity-check, the example samples should yield 0.5 pass@1.</p>
+<pre><code>$ evaluate_functional_correctness data/example_samples.jsonl --problem_file=data/example_problem.jsonl
+Reading samples...
+6it [00:00, 3397.11it/s]
+Running example suites...
+100%|...| 6/6 [00:03&lt;00:00,  1.96it/s]
+Writing results to data/example_samples.jsonl_results.jsonl...
+100%|...| 6/6 [00:00&lt;00:00, 6148.50it/s]
+{&#x27;pass@1&#x27;: 0.4999999999999999}</code></pre>
+<p>Because there is no unbiased way of estimating pass@k when there are fewer
+samples than k, the script does not evaluate pass@k for these cases. To
+evaluate with other k values, pass <code>--k=&lt;comma-separated-values-here&gt;</code>. For
+other options, see</p>
+<pre><code>$ evaluate_functional_correctness --help</code></pre>
+<p>However, we recommend that you use the default values for the rest.</p>
+<h2 id="known-issues">Known Issues</h2>
+<p>While evaluation uses very little memory, you might see the following error
+message when the system is running out of RAM. Since this may cause some
+correct programs to fail, we recommend that you free some memory and try again.</p>
+<pre><code>malloc: can&#x27;t allocate region</code></pre>
+<h2 id="citation">Citation</h2>
+<p>Please cite using the following bibtex entry:</p>
+<pre><code>@article{chen2021codex,
+  title={Evaluating Large Language Models Trained on Code},
+  author={Mark Chen and Jerry Tworek and Heewoo Jun and Qiming Yuan and Henrique Ponde de Oliveira Pinto and Jared Kaplan and Harri Edwards and Yuri Burda and Nicholas Joseph and Greg Brockman and Alex Ray and Raul Puri and Gretchen Krueger and Michael Petrov and Heidy Khlaaf and Girish Sastry and Pamela Mishkin and Brooke Chan and Scott Gray and Nick Ryder and Mikhail Pavlov and Alethea Power and Lukasz Kaiser and Mohammad Bavarian and Clemens Winter and Philippe Tillet and Felipe Petroski Such and Dave Cummings and Matthias Plappert and Fotios Chantzis and Elizabeth Barnes and Ariel Herbert-Voss and William Hebgen Guss and Alex Nichol and Alex Paino and Nikolas Tezak and Jie Tang and Igor Babuschkin and Suchir Balaji and Shantanu Jain and William Saunders and Christopher Hesse and Andrew N. Carr and Jan Leike and Josh Achiam and Vedant Misra and Evan Morikawa and Alec Radford and Matthew Knight and Miles Brundage and Mira Murati and Katie Mayer and Peter Welinder and Bob McGrew and Dario Amodei and Sam McCandlish and Ilya Sutskever and Wojciech Zaremba},
+  year={2021},
+  eprint={2107.03374},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG}
+}</code></pre>
+</body></html>

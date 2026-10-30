@@ -1,0 +1,9 @@
+{
+  "url": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/main/model.safetensors?download=true",
+  "retrieved": "2026-10-30",
+  "downloaded": false,
+  "policy": "url_only_no_weight_file",
+  "repo": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "file": "model.safetensors",
+  "license": "Apache-2.0"
+}

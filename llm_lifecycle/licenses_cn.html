@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>许可与开放程度</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="licenses_cn.md">licenses_cn.md</a></div>
+<h1 id="许可与开放程度">许可与开放程度</h1>
+<p>检索日 <strong>2026-10-30</strong>。再分发前逐项核对原 LICENSE。</p>
+<h2 id="三类-开放-不要混用">三类「开放」不要混用</h2>
+<table><thead><tr><th>说法</th><th>通常包含</th><th>通常不包含</th></tr></thead><tbody><tr><td>开放权重</td><td>权重、配置、分词器、推理代码</td><td>完整训练数据、逐步检查点、内部配比</td></tr><tr><td>训练代码开源</td><td>公开仓库中的训练/微调脚本</td><td>复现原厂曲线所需的全部数据与超参</td></tr><tr><td>闭源 API</td><td>论文、系统卡、API 文档、示例</td><td>权重、训练代码、数据</td></tr></tbody></table>
+<h2 id="代表系列-公开确认-检索日">代表系列（公开确认，检索日）</h2>
+<table><thead><tr><th>系列</th><th>权重许可</th><th>源码</th><th>训练数据</th><th>本库公开包</th></tr></thead><tbody><tr><td>GPT / OpenAI</td><td>无开放权重</td><td>无训练实现</td><td>未公开</td><td>论文可公开；系统卡 <code>_local_only</code></td></tr><tr><td>Claude</td><td>无开放权重</td><td>无</td><td>未公开</td><td>系统卡 <code>_local_only</code></td></tr><tr><td>Gemini</td><td>无开放权重</td><td>无</td><td>未公开</td><td>arXiv 技术报告可公开</td></tr><tr><td>Gemma</td><td>Gemma Terms（非 Apache）</td><td>部分工具</td><td>未公开完整数据</td><td>权重默认不进公开包</td></tr><tr><td>Llama</td><td>Llama Community License（门禁、使用限制）</td><td>llama-models 等</td><td>未公开完整数据</td><td>权重默认不进公开包</td></tr><tr><td>Qwen2.5 0.5/1.5/7/14/32B、Qwen3</td><td>Apache-2.0（2.5-3B 为 Qwen Research，72B 为 Qwen）</td><td>官方仓库</td><td>未公开完整数据</td><td>Apache 模型可公开</td></tr><tr><td>DeepSeek-R1</td><td>MIT（官方卡）</td><td>MIT</td><td>未公开完整数据</td><td>可公开</td></tr><tr><td>DeepSeek-V3 权重</td><td>DeepSeek Model License</td><td>MIT</td><td>未公开</td><td>须核对 Model License</td></tr><tr><td>Mistral 7B / Mixtral</td><td>Apache-2.0（部分新模型 Modified MIT）</td><td>推理仓库</td><td>未公开</td><td>Apache 可公开</td></tr><tr><td>Phi-3 / Phi-4</td><td>MIT</td><td>cookbook MIT</td><td>未公开完整数据</td><td>可公开</td></tr><tr><td>GLM-4.5</td><td>MIT（官方卡）</td><td>见仓库</td><td>未公开完整数据</td><td>可公开</td></tr><tr><td>InternLM3</td><td>Apache-2.0</td><td>Apache-2.0</td><td>未公开完整数据</td><td>可公开</td></tr><tr><td>MiniMax-M2</td><td>Modified MIT（超阈值需展示名称）</td><td>同左</td><td>未公开完整数据</td><td>可公开但保留修改条款</td></tr><tr><td>Kimi K2</td><td>Modified MIT（超 1 亿 MAU / 2000 万美元月收需展示名称）</td><td>同左</td><td>未公开完整数据</td><td>可公开但保留修改条款</td></tr><tr><td>SmolLM2 / TinyLlama</td><td>Apache-2.0</td><td>有</td><td>部分公开配方 ≠ 原厂全量数据</td><td>可公开</td></tr></tbody></table>
+<p>第三方 GGUF 量化是 <strong>第三方复现</strong>，须同时满足基座许可与量化仓库许可。</p>
+</body></html>

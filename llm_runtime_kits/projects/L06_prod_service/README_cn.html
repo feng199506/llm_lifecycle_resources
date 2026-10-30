@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>L06 生产服务示例：评测、日志、限流、监控、版本</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="README_cn.md">README_cn.md</a></div>
+<h1 id="l06-生产服务示例-评测-日志-限流-监控-版本">L06 生产服务示例：评测、日志、限流、监控、版本</h1>
+<p>状态：<strong>已整理，未启动。</strong> mock 后端即可阅读代码。无真实流量、无灰度集群。</p>
+<table><thead><tr><th>能力</th><th>实现</th></tr></thead><tbody><tr><td>日志</td><td>JSON 行，<code>request_id</code></td></tr><tr><td>限流</td><td>进程内令牌桶</td></tr><tr><td>监控</td><td><code>GET /metrics</code> Prometheus 文本</td></tr><tr><td>版本</td><td><code>config/versions/*.json</code>，<code>POST /admin/rollback</code></td></tr><tr><td>评测</td><td><a href="src/eval_harness.py"><code>src/eval_harness.py</code></a> 对 fixture 3 题</td></tr><tr><td>队列</td><td>同步处理 + 拒绝过载（503）</td></tr></tbody></table>
+<p>资源：CPU 很小。不要把 mock 延迟当模型 SLA。</p>
+</body></html>

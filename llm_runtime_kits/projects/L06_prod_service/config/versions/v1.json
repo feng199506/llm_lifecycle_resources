@@ -1,0 +1,1 @@
+{"version": "v1", "model": "mock-v1", "max_qps": 5, "max_inflight": 4}

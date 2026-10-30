@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>4 预训练</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+<script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"],["$$","$$"]]}};</script>
+<script defer src="../../_offline_libs/mathjax-3.2.2/es5/tex-mml-chtml.js"></script>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="04_pretraining_cn.md">04_pretraining_cn.md</a></div>
+<h1 id="4-预训练">4 预训练</h1>
+<h2 id="公开确认的要素">公开确认的要素</h2>
+<ul><li>初始化：常见 Xavier/正态分布小方差；具体 σ 以各报告为准。<br></li><li>优化器：AdamW 居多；Kimi K2 卡面 Muon。<br></li><li>学习率：warmup + cosine/WSD 等，报告级。<br></li><li>精度：BF16/FP8 混精（DeepSeek-V3 等报告）。<br></li><li>批量与梯度累积：全局 batch tokens 是 scaling 的关键，不是「显卡张数」。<br></li><li>稳定性：loss spike、梯度裁剪、跳过坏 batch——工程经验 + 部分报告。<br></li><li>检查点与恢复：Megatron/DeepSpeed 文档。<br></li><li>Scaling laws：Kaplan <a href="../../_public/papers/llm/2001_08361_Kaplan_scaling.pdf" title="本地 PDF">2001.08361</a>；Chinchilla <a href="../../_public/papers/llm/2203_15556_Chinchilla.pdf" title="本地 PDF">2203.15556</a>。后续模型是否仍服从该拟合是 <strong>不能外推为定律</strong>。</li></ul>
+<h2 id="算力估算-教学公式-非本机测量">算力估算（教学公式，非本机测量）</h2>
+<p>近似：\(C \approx 6ND\)（参数量 × token 数，Kaplan 量级讨论）。用于数量级，不用于报价。</p>
+<h2 id="本专题实践边界">本专题实践边界</h2>
+<p>L01 只在合成字符级语料上训一个极小 GPT。<strong>不是</strong> Qwen/Llama 预训练复现。完整 7B+ 预训练需要集群，普通电脑不承诺。</p>
+</body></html>

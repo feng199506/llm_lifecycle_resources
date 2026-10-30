@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3 数据工程</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="03_data_engineering_cn.md">03_data_engineering_cn.md</a></div>
+<h1 id="3-数据工程">3 数据工程</h1>
+<p>多数闭源与多数开放权重模型的完整配比、过滤阈值、污染表是 <strong>推测或未知</strong>。下面只列公开文献里出现过的工序名称。</p>
+<table><thead><tr><th>工序</th><th>公开确认的来源类型</th><th>本库态度</th></tr></thead><tbody><tr><td>采集（网页、代码、书籍）</td><td>技术报告概述</td><td>不保存网页抓取结果</td></tr><tr><td>清洗、去毒、PII</td><td>报告定性描述</td><td>无原厂流水线</td></tr><tr><td>去重（MinHash 等）</td><td>论文/博客常见</td><td>第三方方法，非某厂源码</td></tr><tr><td>质量过滤、配比</td><td>报告表格（若有）</td><td>不编造比例</td></tr><tr><td>合成数据</td><td>Phi、部分后训练论文</td><td>合成 ≠ 无污染</td></tr><tr><td>分词与打包（packing）</td><td>训练框架</td><td>L01 用极小合成语料</td></tr><tr><td>污染检测</td><td>评测论文常见</td><td>记录评测是否去污染</td></tr><tr><td>数据版本</td><td>DVC 等工程实践</td><td>L06 只做配置版本，无大数据湖</td></tr></tbody></table>
+<p>L01 的 <code>fixtures/corpus.txt</code> 是为理解打包而写的示意数据，<strong>不是</strong> 预训练语料。</p>
+</body></html>

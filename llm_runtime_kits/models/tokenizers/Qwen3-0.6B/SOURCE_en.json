@@ -1,0 +1,21 @@
+{
+  "repo": "Qwen/Qwen3-0.6B",
+  "files": [
+    "config.json",
+    "generation_config.json",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "vocab.json",
+    "merges.txt",
+    "README.md",
+    "LICENSE"
+  ],
+  "dest": "tokenizers/Qwen3-0.6B",
+  "license": "Apache-2.0",
+  "hw": "仅配置与分词器",
+  "note": "不是权重。",
+  "retrieved": "2026-10-30",
+  "sidecar_ok": true,
+  "downloaded_weights": false,
+  "weight_urls": []
+}

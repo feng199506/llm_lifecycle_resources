@@ -1,0 +1,2 @@
+{"prompt": "解释 LoRA。", "chosen": "LoRA 把增量表示成两个小矩阵的乘积，只训练少量参数。", "rejected": "LoRA 就是把模型量化成 4 bit。"}
+{"prompt": "DPO 需要奖励模型吗？", "chosen": "标准 DPO 直接用偏好对拟合策略，不必单独训练奖励模型。", "rejected": "DPO 必须先训练一个很大的 PPO 价值网络。"}

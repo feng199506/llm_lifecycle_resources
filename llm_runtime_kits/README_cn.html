@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>大模型实践运行套件</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="README_cn.md">README_cn.md</a></div>
+<h1 id="大模型实践运行套件">大模型实践运行套件</h1>
+<p>路径：<code>/root/llm_lifecycle_resources/llm_runtime_kits/</code><br>
+检索日 <strong>2026-10-30</strong>。本轮 <strong>未安装、未训练、未启动服务</strong>。</p>
+<p>已有 Python 环境（<code>linux_python_offline_resources/environments/09_huggingface_llm_*</code> 等）<strong>不能</strong>直接当作下列项目的运行环境。每项目独立 <code>environments/py3xx_linux</code>（及可选 Windows）wheelhouse。</p>
+<h2 id="项目">项目</h2>
+<table><thead><tr><th>ID</th><th>目标</th><th>主平台</th><th>权重</th></tr></thead><tbody><tr><td>L01</td><td>从零小型 Transformer</td><td>Linux/Windows CPU</td><td>无（合成语料）</td></tr><tr><td>L02</td><td>SFT / LoRA / DPO</td><td><strong>Linux 为主</strong>；Windows CPU 缩小未验证</td><td>SmolLM2-135M <strong>仅地址</strong></td></tr><tr><td>L03</td><td>量化对比</td><td>Linux CPU；GPU 可选</td><td>代表 GGUF <strong>仅地址</strong></td></tr><tr><td>L04</td><td>本地服务、流式、结构化输出</td><td>Linux CPU</td><td>自备权重；默认 mock</td></tr><tr><td>L05</td><td>本地 RAG + 工具 Agent</td><td>Linux CPU</td><td>默认 mock；嵌入地址见 Agent 专题</td></tr><tr><td>L06</td><td>评测、日志、限流、监控、版本</td><td>Linux/Windows 代码</td><td>mock 或 L04</td></tr></tbody></table>
+<h2 id="权重与运行时">权重与运行时</h2>
+<ul><li>权重：<strong>只记 URL</strong>，见 <a href="models/MODELS_cn.html"><code>models/MODELS_cn.md</code></a> 与 <code>*.url.txt</code>。本专题不保存 GGUF/safetensors。</li><li>llama.cpp 二进制：可指向 <code>/root/ai_agent_resources/agent_runtime_kits/runtimes/</code>（运行时，不是权重）。</li></ul>
+<h2 id="启动">启动</h2>
+<p>各项目 <a href="README_cn.html"><code>README_cn.md</code></a>。先解压运行时、用该项目 wheelhouse 建 venv（本轮未做）。资源估算见各 README，条件写在文件里。</p>
+</body></html>

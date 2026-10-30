@@ -1,0 +1,23 @@
+{
+  "url": "https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf?download=true",
+  "retrieved": "2026-10-30",
+  "downloaded": false,
+  "policy": "url_only_no_weight_file",
+  "id": "tinyllama_11b_q4km",
+  "tier": "cpu_baseline",
+  "repo": "TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF",
+  "file": "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf",
+  "license": "Apache-2.0 (TinyLlama)",
+  "hw": "CPU RAM 约 1.5–2.5 GiB",
+  "fmt": "GGUF Q4_K_M",
+  "ctx": "2048 tokens（原卡）",
+  "dest": "cpu_baseline",
+  "public": true,
+  "alts": [
+    {
+      "repo": "TinyLlama/TinyLlama-1.1B-Chat-v1.0-GGUF",
+      "file": "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf",
+      "url": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf?download=true"
+    }
+  ]
+}

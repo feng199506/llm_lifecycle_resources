@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>L01 排错</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="troubleshoot_cn.md">troubleshoot_cn.md</a></div>
+<h1 id="l01-排错">L01 排错</h1>
+<ul><li><code>No module named torch</code>：未按该项目 wheelhouse 安装；本轮未装。</li><li>loss 不降：语料太短已在 train.py 中重复 20 次；仍可能过拟合，属预期。</li><li>生成乱码：字符级、步数少，<strong>不是</strong>失败的唯一标志。</li><li>不要把本模型说成 GPT 官方实现。<code>nn.TransformerEncoder</code> 是 PyTorch API，带因果 mask 的解码器近似。</li></ul>
+</body></html>

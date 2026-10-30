@@ -1,0 +1,4 @@
+Reuse llama.cpp binaries from agent_runtime_kits; do not duplicate.
+source=/root/ai_agent_resources/agent_runtime_kits/runtimes/linux_x86_64/llama_cpp
+retrieved=2026-10-30
+executed=no

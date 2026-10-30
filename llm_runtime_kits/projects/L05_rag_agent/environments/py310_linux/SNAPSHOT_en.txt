@@ -1,0 +1,6 @@
+project=L05_rag_agent
+python=3.10
+platform=linux
+retrieved=2026-10-30
+note=嵌入可复用 agent_runtime_kits 的 bge-small；本轮不重复下大权重
+status=downloaded_only_not_installed

@@ -1,0 +1,8 @@
+hello world. the cat sat on the mat.
+attention is a weighted sum of values.
+transformers use residual connections and layer norm.
+next token prediction trains a language model.
+this corpus is synthetic and tiny. it is not web crawl data.
+pack sequences by concatenating sentences with a separator.
+kv cache is not used in this toy trainer.
+lora adapters are not used in project L01.

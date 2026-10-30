@@ -1,0 +1,17 @@
+{
+  "url": "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B-Q8_0.gguf?download=true",
+  "retrieved": "2026-10-30",
+  "downloaded": false,
+  "policy": "url_only_no_weight_file",
+  "id": "qwen3_06b_q8",
+  "tier": "cpu_baseline",
+  "repo": "Qwen/Qwen3-0.6B-GGUF",
+  "file": "Qwen3-0.6B-Q8_0.gguf",
+  "license": "Apache-2.0",
+  "hw": "CPU RAM 约 1.5–2.5 GiB；官方 GGUF 目前提供 Q8_0",
+  "fmt": "GGUF Q8_0",
+  "ctx": "见 Qwen3 技术报告 / 模型卡；本机未测",
+  "dest": "cpu_baseline",
+  "public": true,
+  "alts": []
+}

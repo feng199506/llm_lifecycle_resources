@@ -1,0 +1,23 @@
+kind,name,source,reason,retrieved
+model,HuggingFaceTB/SmolLM2-135M-Instruct/LICENSE,https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/main/LICENSE?download=true,hf sidecar,2026-10-30
+model,Qwen/Qwen2.5-0.5B-Instruct/model.safetensors.index.json,https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/resolve/main/model.safetensors.index.json?download=true,optional weight skipped or failed,2026-10-30
+docs,transformers,https://huggingface.co/docs/transformers/,"Command '['wget', '-q', '-r', '-l', '2', '-np', '-nH', '--cut-dirs=0', '-p', '-k', '-E', '--quota=40m', '--timeout=20', '--tries=2', '-R', 'woff,woff2,ttf,mp4,webm,zip,tar,gz', '-U', 'llm-lifecycle-resources/2026-10-30', '-P', '/root/llm_lifecycle_resources/llm_lifecycle/docs_html/transformers', 'https://huggingface.co/docs/transformers/']' timed out after 240 seconds",2026-10-30
+docs,peft,https://huggingface.co/docs/peft/,no html/md files,2026-10-30
+docs,trl,https://huggingface.co/docs/trl/,no html/md files,2026-10-30
+docs,openai_api,https://platform.openai.com/docs/api-reference/introduction,no html/md files,2026-10-30
+source,sgl-project/sgl-kernel,github:main,optional; skip if huge,2026-10-30
+model,HuggingFaceTB/SmolLM2-135M-Instruct/LICENSE,https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/main/LICENSE?download=true,hf sidecar,2026-10-30
+wheels,L03_quant_compare/3.12/linux,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L03_quant_compare_3.12_linux.log,2026-10-30
+wheels,L03_quant_compare/3.12/windows,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L03_quant_compare_3.12_windows.log,2026-10-30
+wheels,L04_local_serve/3.10/linux,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L04_local_serve_3.10_linux.log,2026-10-30
+wheels,L04_local_serve/3.10/windows,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L04_local_serve_3.10_windows.log,2026-10-30
+wheels,L04_local_serve/3.12/linux,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L04_local_serve_3.12_linux.log,2026-10-30
+wheels,L04_local_serve/3.12/windows,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L04_local_serve_3.12_windows.log,2026-10-30
+wheels,L05_rag_agent/3.10/linux,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L05_rag_agent_3.10_linux.log,2026-10-30
+wheels,L05_rag_agent/3.10/windows,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L05_rag_agent_3.10_windows.log,2026-10-30
+wheels,L05_rag_agent/3.12/linux,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L05_rag_agent_3.12_linux.log,2026-10-30
+wheels,L05_rag_agent/3.12/windows,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L05_rag_agent_3.12_windows.log,2026-10-30
+wheels,L06_prod_service/3.10/linux,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L06_prod_service_3.10_linux.log,2026-10-30
+wheels,L06_prod_service/3.10/windows,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L06_prod_service_3.10_windows.log,2026-10-30
+wheels,L06_prod_service/3.12/linux,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L06_prod_service_3.12_linux.log,2026-10-30
+wheels,L06_prod_service/3.12/windows,pypi,exit=2 wheels=0 see /root/llm_lifecycle_resources/state/logs/llm_topic/wheels_L06_prod_service_3.12_windows.log,2026-10-30

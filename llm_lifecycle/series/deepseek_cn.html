@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DeepSeek（开放权重，许可分模型）</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="deepseek_cn.md">deepseek_cn.md</a></div>
+<h1 id="deepseek-开放权重-许可分模型">DeepSeek（开放权重，许可分模型）</h1>
+<p>检索日 <strong>2026-10-30</strong>。官方组织 <code>deepseek-ai</code>。开放权重 ≠ 完整训练过程开源。</p>
+<table><thead><tr><th>完整名称</th><th>类型</th><th>发布/论文</th><th>许可（公开确认）</th><th>架构要点</th></tr></thead><tbody><tr><td>DeepSeek-V2</td><td>基础/对话 MoE</td><td>论文 <a href="../../_public/papers/llm/2405_04434_DeepSeekV2.pdf" title="本地 PDF">2405.04434</a>（2024-05）</td><td>见当时模型卡</td><td>MLA + MoE</td></tr><tr><td>DeepSeek-V3-Base / V3</td><td>基础 / 指令 MoE 671B-A37B</td><td>论文 <a href="../../_public/papers/llm/2412_19437_DeepSeekV3.pdf" title="本地 PDF">2412.19437</a></td><td>代码 MIT；<strong>权重</strong> DeepSeek Model License</td><td>128K 上下文</td></tr><tr><td>DeepSeek-R1 / R1-Zero</td><td>推理</td><td>论文 <a href="../../_public/papers/llm/2501_12948_DeepSeekR1.pdf" title="本地 PDF">2501.12948</a>（2025-01-22）</td><td>官方卡：代码与权重 MIT</td><td>基于 V3-Base 的 RL；R1-Zero 无 SFT 冷启动</td></tr><tr><td>DeepSeek-R1-Distill-Qwen-1.5B</td><td>蒸馏推理</td><td>同 R1 论文</td><td>MIT</td><td>本库可选 GPU/CPU 套件，GGUF 为<strong>第三方量化</strong></td></tr><tr><td>DeepSeek-Coder / Coder-V2</td><td>代码</td><td><a href="../../_public/papers/llm/2401_14196_DeepSeekCoder.pdf" title="本地 PDF">2401.14196</a> 等</td><td>见各卡</td><td>代码代表</td></tr></tbody></table>
+<p>推理代码：<code>implementations/deepseek-ai__DeepSeek-V3_*.tar.gz</code>、<code>DeepSeek-R1_*.tar.gz</code>（下载成功才算落地）。<br>
+部署：官方推荐 vLLM / SGLang（Linux+GPU）。本专题 CPU 路径用 llama.cpp 跑蒸馏小模型，<strong>不能</strong>称为 V3/R1 671B 的复现。</p>
+</body></html>

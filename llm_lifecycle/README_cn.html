@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>大模型全生命周期专题</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="README_cn.md">README_cn.md</a></div>
+<h1 id="大模型全生命周期专题">大模型全生命周期专题</h1>
+<p>目录：<code>/root/llm_lifecycle_resources/llm_lifecycle/</code><br>
+检索日：<strong>2026-10-30</strong>。独立专题，不与信号处理资料库或 Python wheel Release 混放。</p>
+<p>本轮只做资料获取、源码与依赖下载、配置和文档整理：不安装、不训练、不启动服务。<br>
+不把「开放权重」写成「完整训练过程开源」。</p>
+<p>状态：本轮项目均为 <strong>已整理，未运行验证</strong>。路径见 <a href="PATHS_cn.html"><code>PATHS_cn.md</code></a>。<br>
+运行套件：<a href="../llm_runtime_kits/README_cn.html"><code>../llm_runtime_kits/README_cn.md</code></a>。</p>
+<h2 id="覆盖范围">覆盖范围</h2>
+<table><thead><tr><th>子目录</th><th>内容</th></tr></thead><tbody><tr><td><code>series/</code></td><td>按模型系列：版本、架构、训练、推理、评测、部署</td></tr><tr><td><code>theory/</code></td><td>按技术主题：数学 → 生产评估</td></tr><tr><td><code>methods/</code></td><td>公式、证据分级、术语</td></tr><tr><td><code>implementations/</code></td><td>钉死版本源码包</td></tr><tr><td><code>docs_html/</code></td><td>官方文档有限额镜像（默认不可公开再分发）</td></tr><tr><td><code>experiments/</code></td><td>评测说明；完整基准数据大多未下</td></tr></tbody></table>
+<p>交叉索引：<a href="series_index_cn.html"><code>series_index_cn.md</code></a> · <a href="topic_index_cn.html"><code>topic_index_cn.md</code></a> · <a href="learning_path_cn.html"><code>learning_path_cn.md</code></a> · <a href="licenses_cn.html"><code>licenses_cn.md</code></a><br>
+覆盖度：<a href="coverage_cn.html"><code>coverage_cn.md</code></a> · 缺口：<a href="missing_cn.html"><code>missing_cn.md</code></a></p>
+<p>论文：<a href="../_public/papers/llm/"><code>../_public/papers/llm/</code></a><br>
+系统卡：<a href="../_local_only/papers/llm/"><code>../_local_only/papers/llm/</code></a><br>
+清单：<a href="../inventories/llm_downloads_cn.csv"><code>../inventories/llm_downloads_cn.csv</code></a></p>
+<h2 id="证据分级">证据分级</h2>
+<table><thead><tr><th>标记</th><th>含义</th></tr></thead><tbody><tr><td><strong>公开确认</strong></td><td>官方论文、模型卡、系统卡、LICENSE、API 文档</td></tr><tr><td><strong>第三方复现</strong></td><td>社区量化、框架示例、非官方复现</td></tr><tr><td><strong>推测或未知</strong></td><td>未公开数据配方、闭源实现、未实测延迟/显存</td></tr></tbody></table>
+<p>框架示例不能标成某闭源模型的真实实现。</p>
+</body></html>

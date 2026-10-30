@@ -1,0 +1,8 @@
+Windows llama.cpp binaries are not stored in this topic.
+Official release page (retrieved 2026-10-30):
+https://github.com/ggml-org/llama.cpp/releases
+Pinned source tarball (linux-oriented snapshot of the same project):
+/root/llm_lifecycle_resources/llm_lifecycle/implementations/ggml-org__llama.cpp_b11998.tar.gz
+Linux CPU binaries may be reused from:
+/root/llm_lifecycle_resources/llm_runtime_kits/runtimes/linux_x86_64/llama_cpp/
+executed=no

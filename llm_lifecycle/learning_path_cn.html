@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>中文学习路线</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="learning_path_cn.md">learning_path_cn.md</a></div>
+<h1 id="中文学习路线">中文学习路线</h1>
+<p>先修：线性代数与概率直觉、Python、命令行。不必先训 70B。<br>
+大型预训练以公开方案和缩小实验为主，<strong>不承诺</strong>在普通电脑复现完整训练。</p>
+<h2 id="阶段-0-分清三件事-0-5-天">阶段 0 — 分清三件事（0.5 天）</h2>
+<ol><li>语言模型：下一个 token 的条件分布。<br></li><li>对齐后的助手：SFT + 偏好优化之后的行为，不等于基座。<br></li><li>服务：Prefill/Decode、批处理、限流、版本、成本。</li></ol>
+<p>读 <a href="theory/01_math_foundations_cn.html"><code>theory/01_math_foundations_cn.md</code></a> 前半与 <a href="licenses_cn.html"><code>licenses_cn.md</code></a>。<br>
+产出：能说明某个模型是闭源 API、开放权重，还是训练代码+数据也公开。</p>
+<h2 id="阶段-1-数学与-transformer-3-7-天">阶段 1 — 数学与 Transformer（3–7 天）</h2>
+<p>读 <a href="theory/01_math_foundations_cn.html"><code>theory/01_math_foundations_cn.md</code></a>、<code>02_architecture_cn.md</code>。<br>
+论文（公开确认）：<a href="../_public/papers/llm/1706_03762_Attention_is_All_You_Need.pdf" title="本地 PDF">1706.03762</a>、RoPE、GQA、RMSNorm。<br>
+实践：<strong>L01</strong> 从零实现小型 Transformer。</p>
+<h2 id="阶段-2-数据与预训练-3-5-天-可只读">阶段 2 — 数据与预训练（3–5 天，可只读）</h2>
+<p>读 <code>03_data_engineering_cn.md</code>、<code>04_pretraining_cn.md</code>。<br>
+论文：Kaplan / Chinchilla。完整数据配比对多数模型是 <strong>推测或未知</strong>。</p>
+<h2 id="阶段-3-后训练-4-7-天">阶段 3 — 后训练（4–7 天）</h2>
+<p>读 <code>05_posttraining_cn.md</code>。论文：InstructGPT、LoRA、QLoRA、DPO、PPO、DeepSeekMath（GRPO）。<br>
+实践：<strong>L02</strong> 在 SmolLM2-135M 上做缩小 SFT / LoRA / DPO。训练以 <strong>Linux</strong> 为主。</p>
+<h2 id="阶段-4-推理与本地服务-3-5-天">阶段 4 — 推理与本地服务（3–5 天）</h2>
+<p>读 <code>07_inference_cn.md</code>、<code>08_serving_cn.md</code>。<br>
+实践：<strong>L03</strong> 量化对比 → <strong>L04</strong> 流式与结构化输出。vLLM 主要 Linux+CUDA，本机未装。</p>
+<h2 id="阶段-5-rag-agent-生产-1-周">阶段 5 — RAG、Agent、生产（1 周）</h2>
+<p>读 <code>09_production_cn.md</code>。Agent 细节见 <code>/root/ai_agent_resources/</code>。<br>
+实践：<strong>L05</strong>、<strong>L06</strong>。提示注入文献只作防护，不复现攻击载荷。</p>
+<h2 id="阶段-6-评估-持续">阶段 6 — 评估（持续）</h2>
+<p>读 <code>10_evaluation_cn.md</code>。记录评测版本与条件，不直接比较不同口径分数。本轮未跑基准。</p>
+</body></html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>1 数学与基础</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+<script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"],["$$","$$"]]}};</script>
+<script defer src="../../_offline_libs/mathjax-3.2.2/es5/tex-mml-chtml.js"></script>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="01_math_foundations_cn.md">01_math_foundations_cn.md</a></div>
+<h1 id="1-数学与基础">1 数学与基础</h1>
+<p>状态：<strong>已整理，未运行验证。</strong> 证据以论文为准。</p>
+<h2 id="线性代数">线性代数</h2>
+<p>向量、矩阵乘法、特征值只服务于「把 token 变成向量再线性变换」。注意力里的 \(Q=XW_Q\) 是仿射映射。<strong>公开确认</strong>：Vaswani et al. <a href="../../_public/papers/llm/1706_03762_Attention_is_All_You_Need.pdf" title="本地 PDF">1706.03762</a>。</p>
+<h2 id="概率与语言建模目标">概率与语言建模目标</h2>
+<p>自回归：\(p(x)=\prod_t p(x_t\mid x_{&lt;t})\)。训练常用交叉熵 / 负对数似然 \(\mathcal{L}=-\sum_t \log p_\theta(x_t\mid x_{&lt;t})\)。这是 <strong>公开确认</strong> 的标准目标；闭源模型是否另加辅助损失属于 <strong>推测或未知</strong>。</p>
+<h2 id="信息论">信息论</h2>
+<p>交叉熵 \(H(p,q)=-\mathbb{E}_{p}\log q\)；KL 出现在 RLHF/蒸馏。不要把「降低 loss」直接说成「降低困惑度已在业务达标」。</p>
+<h2 id="优化与自动微分">优化与自动微分</h2>
+<p>Adam（<a href="../../_public/papers/llm/1412_6980_Adam.pdf" title="本地 PDF">1412.6980</a>）及其变体是公开确认的常用优化器。Llama 3 / Qwen 报告会写 AdamW 设定；Kimi K2 卡面写 Muon——以卡为准。自动微分是框架实现（PyTorch），不是模型论文的贡献。</p>
+<h2 id="tokenization-与嵌入">Tokenization 与嵌入</h2>
+<p>BPE <a href="../../_public/papers/llm/1508_07909_BPE.pdf" title="本地 PDF">1508.07909</a>、SentencePiece <a href="../../_public/papers/llm/1808_06226_SentencePiece.pdf" title="本地 PDF">1808.06226</a> 为 <strong>公开确认</strong>。嵌入矩阵 \(E\in\mathbb{R}^{V\times d}\)；部分小模型 tying（Qwen2.5-0.5B 报告表：Tie Embedding = Yes）。</p>
+<h2 id="损失函数">损失函数</h2>
+<p>预训练：next-token CE。SFT：同样 CE，数据换成指令对。偏好：DPO 的 logistic 目标见 <a href="../../_public/papers/llm/2305_18290_DPO.pdf" title="本地 PDF">2305.18290</a>，不要把框架默认超参写成原论文唯一设定。</p>
+</body></html>

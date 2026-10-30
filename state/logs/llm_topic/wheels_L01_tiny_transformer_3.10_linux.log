@@ -1,0 +1,61 @@
+$ /usr/bin/python3 /root/linux_python_offline_resources/scripts/pip.pyz download --dest /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/wheelhouse --python-version 3.10 --implementation cp --abi cp310 --abi abi3 --abi none --only-binary :all: --cache-dir /root/llm_lifecycle_resources/state/pip_cache --disable-pip-version-check --timeout 120 --retries 4 --platform manylinux2014_x86_64 --platform manylinux_2_17_x86_64 --platform manylinux_2_24_x86_64 --platform manylinux_2_27_x86_64 --platform manylinux_2_28_x86_64 --platform manylinux_2_31_x86_64 --platform manylinux_2_34_x86_64 --platform manylinux_2_35_x86_64 --platform linux_x86_64 --platform any --extra-index-url https://download.pytorch.org/whl/cpu -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/requirements_direct_en.txt
+Looking in indexes: https://pypi.org/simple, https://download.pytorch.org/whl/cpu
+Collecting numpy<3,>=1.26 (from -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/requirements_direct_en.txt (line 1))
+  Downloading numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+Collecting torch (from -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading torch-2.14.1%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (37 kB)
+Collecting filelock (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading filelock-4.1.0-py3-none-any.whl.metadata (2.0 kB)
+Collecting typing-extensions>=4.10.0 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting setuptools>=77.0.3 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading setuptools-84.2.1-py3-none-any.whl.metadata (6.6 kB)
+Collecting sympy>=1.13.3 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+Collecting networkx>=2.5.1 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading networkx-3.4.2-py3-none-any.whl.metadata (6.3 kB)
+Collecting jinja2 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting fsspec>=0.8.5 (from torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading fsspec-2026.9.0-py3-none-any.whl.metadata (10 kB)
+Collecting mpmath<1.4,>=1.1.0 (from sympy>=1.13.3->torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+Collecting MarkupSafe>=2.0 (from jinja2->torch->-r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/requirements_direct_en.txt (line 2))
+  Downloading markupsafe-3.0.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Downloading numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.8/16.8 MB 80.6 MB/s  0:00:00
+
+Downloading torch-2.14.1%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl (196.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.2/196.2 MB 84.2 MB/s  0:00:02
+
+Downloading fsspec-2026.9.0-py3-none-any.whl (221 kB)
+Downloading networkx-3.4.2-py3-none-any.whl (1.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 53.6 MB/s  0:00:00
+
+Downloading setuptools-84.2.1-py3-none-any.whl (876 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 876.3/876.3 kB 20.3 MB/s  0:00:00
+
+Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 77.8 MB/s  0:00:00
+
+Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 13.9 MB/s  0:00:00
+
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Downloading filelock-4.1.0-py3-none-any.whl (133 kB)
+Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+Downloading markupsafe-3.0.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (20 kB)
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/wheelhouse/numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/wheelhouse/torch-2.14.1+cpu-cp310-cp310-manylinux_2_28_x86_64.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/wheelhouse/fsspec-2026.9.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/wheelhouse/networkx-3.4.2-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/wheelhouse/setuptools-84.2.1-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/wheelhouse/sympy-1.14.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/wheelhouse/mpmath-1.3.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/wheelhouse/typing_extensions-4.16.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/wheelhouse/filelock-4.1.0-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/wheelhouse/jinja2-3.1.6-py3-none-any.whl
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L01_tiny_transformer/environments/py310_linux/wheelhouse/markupsafe-3.0.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded numpy torch fsspec networkx setuptools sympy mpmath typing-extensions filelock jinja2 MarkupSafe
+
+[exit 0]

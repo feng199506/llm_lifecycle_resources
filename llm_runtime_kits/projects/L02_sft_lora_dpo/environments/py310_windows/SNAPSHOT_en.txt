@@ -1,0 +1,6 @@
+project=L02_sft_lora_dpo
+python=3.10
+platform=windows
+retrieved=2026-10-30
+note=训练以 Linux 为主；Windows CPU 可跑缩小示例，未验证
+status=downloaded_only_not_installed

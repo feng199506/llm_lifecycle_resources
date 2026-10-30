@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Language Model Evaluation Harness</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="lm_eval_README.md">lm_eval_README.md</a></div>
+<h1 id="language-model-evaluation-harness">Language Model Evaluation Harness</h1>
+<p><a href="https://zenodo.org/badge/DOI/10.5281/zenodo.10256836.svg">![DOI</a>](<a href="https://doi.org/10.5281/zenodo.10256836">https://doi.org/10.5281/zenodo.10256836</a>)</p>
+<hr>
+<h2 id="latest-news">Latest News 📣</h2>
+<ul><li>[2026/09] <strong>Plugins</strong>: model backends, filters, metrics and aggregations can now be registered from your own package instead of forking — declare an <code>lm_eval.*</code> entry point for zero-config discovery, or point <code>--plugins</code> at a local module. See the Plugin Guide<span class="muted">（离线包中没有此文件）</span>.</li><li>[2025/12] <strong>CLI refactored</strong> with subcommands (<code>run</code>, <code>ls</code>, <code>validate</code>) and YAML config file support via <code>--config</code>. See the CLI Reference<span class="muted">（离线包中没有此文件）</span> and Configuration Guide<span class="muted">（离线包中没有此文件）</span>.</li><li>[2025/12] <strong>Lighter install</strong>: Base package no longer includes <code>transformers</code>/<code>torch</code>. Install model backends separately: <code>pip install lm_eval[hf]</code>, <code>lm_eval[vllm]</code>, etc.</li><li>[2025/07] Added <code>think_end_token</code> arg to <code>hf</code> (token/str), <code>vllm</code> and <code>sglang</code> (str) for stripping CoT reasoning traces from models that support it.</li><li>[2025/03] Added support for steering HF models!</li><li>[2025/02] Added <a href="https://docs.sglang.ai/">SGLang</a> support!</li><li>[2024/09] We are prototyping allowing users of LM Evaluation Harness to create and evaluate on text+image multimodal input, text output tasks, and have just added the <code>hf-multimodal</code> and <code>vllm-vlm</code> model types and <code>mmmu</code> task as a prototype feature. We welcome users to try out this in-progress feature and stress-test it for themselves, and suggest they check out <a href="https://github.com/EvolvingLMMs-Lab/lmms-eval"><code>lmms-eval</code></a>, a wonderful project originally forking off of the lm-evaluation-harness, for a broader range of multimodal tasks, models, and features.</li><li>[2024/07] API model<span class="muted">（离线包中没有此文件）</span> support has been updated and refactored, introducing support for batched and async requests, and making it significantly easier to customize and use for your own purposes. <strong>To run Llama 405B, we recommend using VLLM's OpenAI-compliant API to host the model, and use the <code>local-completions</code> model type to evaluate the model.</strong></li><li>[2024/07] New Open LLM Leaderboard tasks have been added ! You can find them under the leaderboard<span class="muted">（离线包中没有此文件）</span> task group.</li></ul>
+<hr>
+<h2 id="announcement">Announcement</h2>
+<p><strong>A new v0.4.0 release of lm-evaluation-harness is available</strong> !</p>
+<p>New updates and features include:</p>
+<ul><li><strong>New Open LLM Leaderboard tasks have been added ! You can find them under the leaderboard<span class="muted">（离线包中没有此文件）</span> task group.</strong></li><li>Internal refactoring</li><li>Config-based task creation and configuration</li><li>Easier import and sharing of externally-defined task config YAMLs</li><li>Support for Jinja2 prompt design, easy modification of prompts + prompt imports from Promptsource</li><li>More advanced configuration options, including output post-processing, answer extraction, and multiple LM generations per document, configurable fewshot settings, and more</li><li>Speedups and new modeling libraries supported, including: faster data-parallel HF model usage, vLLM support, MPS support with HuggingFace, and more</li><li>Logging and usability changes</li><li>New tasks including CoT BIG-Bench-Hard, Belebele, user-defined task groupings, and more</li></ul>
+<p>Please see our updated documentation pages in <code>docs/</code> for more details.</p>
+<p>Development will be continuing on the <code>main</code> branch, and we encourage you to give us feedback on what features are desired and how to improve the library further, or ask questions, either in issues or PRs on GitHub, or in the <a href="https://discord.gg/eleutherai">EleutherAI discord</a>!</p>
+<hr>
+<h2 id="overview">Overview</h2>
+<p>This project provides a unified framework to test generative language models on a large number of different evaluation tasks.</p>
+<p><strong>Features:</strong></p>
+<ul><li>Over 60 standard academic benchmarks for LLMs, with hundreds of subtasks and variants implemented.</li><li>Support for models loaded via <a href="https://github.com/huggingface/transformers/">transformers</a> (including quantization via <a href="https://github.com/ModelCloud/GPTQModel">GPTQModel</a> and <a href="https://github.com/PanQiWei/AutoGPTQ">AutoGPTQ</a>), <a href="https://github.com/EleutherAI/gpt-neox">GPT-NeoX</a>, and <a href="https://github.com/microsoft/Megatron-DeepSpeed/">Megatron-DeepSpeed</a>, with a flexible tokenization-agnostic interface.</li><li>Support for fast and memory-efficient inference with <a href="https://github.com/vllm-project/vllm">vLLM</a>.</li><li>Support for commercial APIs including <a href="https://openai.com">OpenAI</a>, and <a href="https://textsynth.com/">TextSynth</a>.</li><li>Support for evaluation on adapters (e.g. LoRA) supported in <a href="https://github.com/huggingface/peft">HuggingFace&#x27;s PEFT library</a>.</li><li>Support for local models and benchmarks.</li><li>Evaluation with publicly available prompts ensures reproducibility and comparability between papers.</li><li>Easy support for custom prompts and evaluation metrics.</li></ul>
+<p>The Language Model Evaluation Harness is the backend for 🤗 Hugging Face's popular <a href="https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard">Open LLM Leaderboard</a>, has been used in <a href="https://scholar.google.com/scholar?oi=bibs&amp;hl=en&amp;authuser=2&amp;cites=15052937328817631261,4097184744846514103,1520777361382155671,17476825572045927382,18443729326628441434,14801318227356878622,7890865700763267262,12854182577605049984,15641002901115500560,5104500764547628290">hundreds of papers</a>, and is used internally by dozens of organizations including NVIDIA, Cohere, BigScience, BigCode, Nous Research, and Mosaic ML.</p>
+<h2 id="install">Install</h2>
+<p>To install the <code>lm-eval</code> package from the github repository, run:</p>
+<pre><code>git clone --depth 1 https://github.com/EleutherAI/lm-evaluation-harness
+cd lm-evaluation-harness
+pip install -e .</code></pre>
+<h3 id="installing-model-backends">Installing Model Backends</h3>
+<p>The base installation provides the core evaluation framework. <strong>Model backends must be installed separately</strong> using optional extras:</p>
+<p>For HuggingFace transformers models:</p>
+<pre><code>pip install &quot;lm_eval[hf]&quot;</code></pre>
+<p>For vLLM inference:</p>
+<pre><code>pip install &quot;lm_eval[vllm]&quot;</code></pre>
+<p>For API-based models (OpenAI, Anthropic, etc.):</p>
+<pre><code>pip install &quot;lm_eval[api]&quot;</code></pre>
+<p>Multiple backends can be installed together:</p>
+<pre><code>pip install &quot;lm_eval[hf,vllm,api]&quot;</code></pre>
+<p>A detailed table of all optional extras is available at the end of this document.</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<h3 id="documentation">Documentation</h3>
+<table><thead><tr><th>Guide</th><th>Description</th></tr></thead><tbody><tr><td>CLI Reference<span class="muted">（离线包中没有此文件）</span></td><td>Command-line arguments and subcommands</td></tr><tr><td>Configuration Guide<span class="muted">（离线包中没有此文件）</span></td><td>YAML config file format and examples</td></tr><tr><td>Python API<span class="muted">（离线包中没有此文件）</span></td><td>Programmatic usage with <code>simple_evaluate()</code></td></tr><tr><td>Task Guide<span class="muted">（离线包中没有此文件）</span></td><td>Available tasks and task configuration</td></tr></tbody></table>
+<p>Use <code>lm-eval -h</code> to see available options, or <code>lm-eval run -h</code> for evaluation options.</p>
+<p>List available tasks with:</p>
+<pre><code>lm-eval ls tasks</code></pre>
+<h3 id="hugging-face-transformers">Hugging Face <code>transformers</code></h3>
+<blockquote>[!Important] To use the HuggingFace backend, first install: <code>pip install &quot;lm_eval[hf]&quot;</code></blockquote>
+<p>To evaluate a model hosted on the <a href="https://huggingface.co/models">HuggingFace Hub</a> (e.g. GPT-J-6B) on <code>hellaswag</code> you can use the following command (this assumes you are using a CUDA-compatible GPU):</p>
+<pre><code>lm_eval --model hf \
+    --model_args pretrained=EleutherAI/gpt-j-6B \
+    --tasks hellaswag \
+    --device cuda:0 \
+    --batch_size 8</code></pre>
+<p>Additional arguments can be provided to the model constructor using the <code>--model_args</code> flag. Most notably, this supports the common practice of using the <code>revisions</code> feature on the Hub to store partially trained checkpoints, or to specify the datatype for running a model:</p>
+<pre><code>lm_eval --model hf \
+    --model_args pretrained=EleutherAI/pythia-160m,revision=step100000,dtype=&quot;float&quot; \
+    --tasks lambada_openai,hellaswag \
+    --device cuda:0 \
+    --batch_size 8</code></pre>
+<p>Models that are loaded via both <code>transformers.AutoModelForCausalLM</code> (autoregressive, decoder-only GPT style models) and <code>transformers.AutoModelForSeq2SeqLM</code> (such as encoder-decoder models like T5) in Huggingface are supported.</p>
+<p>Batch size selection can be automated by setting the  ``<code>--batch_size</code>`<code> flag to </code>`<code>auto</code>`<code>. This will perform automatic detection of the largest batch size that will fit on your device. On tasks where there is a large difference between the longest and shortest example, it can be helpful to periodically recompute the largest batch size, to gain a further speedup. To do this, append </code>`<code>:N</code>`<code> to above flag to automatically recompute the largest batch size </code>`<code>N</code>`` times. For example, to recompute the batch size 4 times, the command would be:</p>
+<pre><code>lm_eval --model hf \
+    --model_args pretrained=EleutherAI/pythia-160m,revision=step100000,dtype=&quot;float&quot; \
+    --tasks lambada_openai,hellaswag \
+    --device cuda:0 \
+    --batch_size auto:4</code></pre>
+<blockquote>[!Note] Just like you can provide a local path to <code>transformers.AutoModel</code>, you can also provide a local path to <code>lm_eval</code> via <code>--model_args pretrained=/path/to/model</code></blockquote>
+<h4 id="evaluating-gguf-models">Evaluating GGUF Models</h4>
+<p><code>lm-eval</code> supports evaluating models in GGUF format using the Hugging Face (<code>hf</code>) backend. This allows you to use quantized models compatible with <code>transformers</code>, <code>AutoModel</code>, and llama.cpp conversions.</p>
+<p>To evaluate a GGUF model, pass the path to the directory containing the model weights, the <code>gguf_file</code>, and optionally a separate <code>tokenizer</code> path using the <code>--model_args</code> flag.</p>
+<p><strong>🚨 Important Note:</strong><br>
+If no separate tokenizer is provided, Hugging Face will attempt to reconstruct the tokenizer from the GGUF file — this can take <strong>hours</strong> or even hang indefinitely. Passing a separate tokenizer avoids this issue and can reduce tokenizer loading time from hours to seconds.</p>
+<p><strong>✅ Recommended usage:</strong></p>
+<pre><code>lm_eval --model hf \
+    --model_args pretrained=/path/to/gguf_folder,gguf_file=model-name.gguf,tokenizer=/path/to/tokenizer \
+    --tasks hellaswag \
+    --device cuda:0 \
+    --batch_size 8</code></pre>
+<blockquote>[!Tip] Ensure the tokenizer path points to a valid Hugging Face tokenizer directory (e.g., containing tokenizer_config.json, vocab.json, etc.).</blockquote>
+<h4 id="evaluating-gguf-models-served-by-llama-cpp">Evaluating GGUF Models Served by llama.cpp</h4>
+<p>The <code>gguf</code> model type evaluates models hosted by a <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a> server (<code>llama-server</code>) through its OpenAI-compatible <code>/v1/completions</code> endpoint:</p>
+<pre><code>lm_eval --model gguf \
+    --model_args base_url=http://127.0.0.1:8080 \
+    --tasks hellaswag</code></pre>
+<ul><li>Requires a llama.cpp release from December 2024 or newer, which returns logprobs in the modern OpenAI format (<code>logprobs.content</code>, see <a href="https://github.com/ggml-org/llama.cpp/pull/10783">llama.cpp#10783</a>). The deprecated legacy format (<code>token_logprobs</code>) is not supported.</li><li>If the server runs in router mode (multiple models), pass the model name or alias: <code>--model_args base_url=http://127.0.0.1:8080,model=my-model-alias</code>.</li><li>Requests are issued concurrently. The default degree of parallelism is auto-detected from the server's slot count (<code>/props</code> → <code>total_slots</code>, i.e. llama-server's <code>--parallel</code> setting); override it with <code>parallel=&lt;N&gt;</code>. <code>loglikelihood</code> requests are additionally pinned to slots via llama.cpp's <code>id_slot</code> parameter, with consecutive requests sharing a context (e.g. the candidate continuations of one multiple-choice question) assigned to the same slot so they reuse its cached prompt prefix. <code>generate_until</code> requests are left unpinned, since the server's dynamic idle-slot assignment load-balances variable-length generations better.</li><li><code>loglikelihood</code> is implemented via exact teacher forcing: llama.cpp ignores <code>echo</code> and never returns prompt logprobs, so the continuation is tokenized with the server's <code>/tokenize</code> endpoint (context and continuation encoded separately, matching the HF backend), and each continuation token is scored with its natural prefix as a token-id prompt plus a <code>logit_bias</code> that forces the server to sample it. llama.cpp reports the forced token's <em>pre-sampling</em> logprob and an unbiased <code>top_logprobs</code>, yielding loglikelihoods that match the HF backend to within quantization noise. (A naive alternative — forcing the continuation with a GBNF grammar — does <em>not</em> work: grammar-constrained decoding can pick a fragmented tokenization whose logprobs are not the natural-tokenization loglikelihoods, which systematically deflates scores.)</li><li><code>loglikelihood_rolling</code> (perplexity tasks such as wikitext) is not implemented for this model type.</li></ul>
+<h4 id="multi-gpu-evaluation-with-hugging-face-accelerate">Multi-GPU Evaluation with Hugging Face <code>accelerate</code></h4>
+<p>We support three main ways of using Hugging Face's <a href="https://github.com/huggingface/accelerate">accelerate 🚀</a> library for multi-GPU evaluation.</p>
+<p>To perform <em>data-parallel evaluation</em> (where each GPU loads a <strong>separate full copy</strong> of the model), we leverage the <code>accelerate</code> launcher as follows:</p>
+<pre><code>accelerate launch -m lm_eval --model hf \
+    --tasks lambada_openai,arc_easy \
+    --batch_size 16</code></pre>
+<p>(or via <code>accelerate launch --no-python lm_eval</code>).</p>
+<p>For cases where your model can fit on a single GPU, this allows you to evaluate on K GPUs K times faster than on one.</p>
+<p><strong>WARNING</strong>: This setup does not work with FSDP model sharding, so in <code>accelerate config</code> FSDP must be disabled, or the NO_SHARD FSDP option must be used.</p>
+<p>The second way of using <code>accelerate</code> for multi-GPU evaluation is when your model is <em>too large to fit on a single GPU.</em></p>
+<p>In this setting, run the library <em>outside the <code>accelerate</code> launcher</em>, but passing <code>parallelize=True</code> to <code>--model_args</code> as follows:</p>
+<pre><code>lm_eval --model hf \
+    --tasks lambada_openai,arc_easy \
+    --model_args parallelize=True \
+    --batch_size 16</code></pre>
+<p>This means that your model's weights will be split across all available GPUs.</p>
+<p>For more advanced users or even larger models, we allow for the following arguments when <code>parallelize=True</code> as well:</p>
+<ul><li><code>device_map_option</code>: How to split model weights across available GPUs. defaults to "auto".</li><li><code>max_memory_per_gpu</code>: the max GPU memory to use per GPU in loading the model.</li><li><code>max_cpu_memory</code>: the max amount of CPU memory to use when offloading the model weights to RAM.</li><li><code>offload_folder</code>: a folder where model weights will be offloaded to disk if needed.</li></ul>
+<p>The third option is to use both at the same time. This will allow you to take advantage of both data parallelism and model sharding, and is especially useful for models that are too large to fit on a single GPU.</p>
+<pre><code>accelerate launch --multi_gpu --num_processes {nb_of_copies_of_your_model} \
+    -m lm_eval --model hf \
+    --tasks lambada_openai,arc_easy \
+    --model_args parallelize=True \
+    --batch_size 16</code></pre>
+<p>To learn more about model parallelism and how to use it with the <code>accelerate</code> library, see the <a href="https://huggingface.co/docs/transformers/v4.15.0/en/parallelism">accelerate documentation</a></p>
+<p><strong>Warning: We do not natively support multi-node evaluation using the <code>hf</code> model type! Please reference <a href="https://github.com/EleutherAI/gpt-neox/blob/main/eval.py">our GPT-NeoX library integration</a> for an example of code in which a custom multi-machine evaluation script is written.</strong></p>
+<p><strong>Note: we do not currently support multi-node evaluations natively, and advise using either an externally hosted server to run inference requests against, or creating a custom integration with your distributed framework <a href="https://github.com/EleutherAI/gpt-neox/blob/main/eval_tasks/eval_adapter.py">as is done for the GPT-NeoX library</a>.</strong></p>
+<h4 id="tensor-parallelism-native-pytorch">Tensor Parallelism (native PyTorch)</h4>
+<p>For models that support PyTorch's native Tensor Parallelism (via DTensor), you can shard model weights across GPUs without <code>accelerate</code>'s device-map by passing <code>tp_plan=auto</code> in <code>--model_args</code>. Launch with <code>torchrun</code> or <code>accelerate launch</code>:</p>
+<pre><code>torchrun --nproc-per-node=4 -m lm_eval \
+    --model hf \
+    --model_args pretrained=google/gemma-4-31B-it,tp_plan=auto \
+    --tasks lambada_openai,arc_easy \
+    --batch_size 16</code></pre>
+<p><strong>Constraints:</strong></p>
+<ul><li><code>tp_plan</code> and <code>parallelize=True</code> are mutually exclusive — use one or the other.</li><li>The number of key-value heads in the model must be divisible by <code>--nproc-per-node</code> (the TP degree).</li><li>Requires PyTorch &gt;= 2.4 and a <code>transformers</code> version that exposes a TP plan for the model (v4.47+).</li></ul>
+<h3 id="steered-hugging-face-transformers-models">Steered Hugging Face <code>transformers</code> models</h3>
+<p>To evaluate a Hugging Face <code>transformers</code> model with steering vectors applied, specify the model type as <code>steered</code> and provide the path to either a PyTorch file containing pre-defined steering vectors, or a CSV file that specifies how to derive steering vectors from pretrained <code>sparsify</code> or <code>sae_lens</code> models (you will need to install the corresponding optional dependency for this method).</p>
+<p>Specify pre-defined steering vectors:</p>
+<pre><code>import torch
+
+steer_config = {
+    &quot;layers.3&quot;: {
+        &quot;steering_vector&quot;: torch.randn(1, 768),
+        &quot;bias&quot;: torch.randn(1, 768),
+        &quot;steering_coefficient&quot;: 1,
+        &quot;action&quot;: &quot;add&quot;
+    },
+}
+torch.save(steer_config, &quot;steer_config.pt&quot;)</code></pre>
+<p>Specify derived steering vectors:</p>
+<pre><code>import pandas as pd
+
+pd.DataFrame({
+    &quot;loader&quot;: [&quot;sparsify&quot;],
+    &quot;action&quot;: [&quot;add&quot;],
+    &quot;sparse_model&quot;: [&quot;EleutherAI/sae-pythia-70m-32k&quot;],
+    &quot;hookpoint&quot;: [&quot;layers.3&quot;],
+    &quot;feature_index&quot;: [30],
+    &quot;steering_coefficient&quot;: [10.0],
+}).to_csv(&quot;steer_config.csv&quot;, index=False)</code></pre>
+<p>Run the evaluation harness with steering vectors applied:</p>
+<pre><code>lm_eval --model steered \
+    --model_args pretrained=EleutherAI/pythia-160m,steer_path=steer_config.pt \
+    --tasks lambada_openai,hellaswag \
+    --device cuda:0 \
+    --batch_size 8</code></pre>
+<h3 id="nvidia-nemo-models">NVIDIA <code>nemo</code> models</h3>
+<p><a href="https://github.com/NVIDIA/NeMo">NVIDIA NeMo Framework</a> is a generative AI framework built for researchers and pytorch developers working on language models.</p>
+<p>To evaluate a <code>nemo</code> model, start by installing NeMo following <a href="https://github.com/NVIDIA/NeMo?tab=readme-ov-file#installation">the documentation</a>. We highly recommended to use the NVIDIA PyTorch or NeMo container, especially if having issues installing Apex or any other dependencies (see <a href="https://github.com/NVIDIA/NeMo/releases">latest released containers</a>). Please also install the lm evaluation harness library following the instructions in <a href="https://github.com/EleutherAI/lm-evaluation-harness/tree/main?tab=readme-ov-file#install">the Install section</a>.</p>
+<p>NeMo models can be obtained through <a href="https://catalog.ngc.nvidia.com/models">NVIDIA NGC Catalog</a> or in <a href="https://huggingface.co/nvidia">NVIDIA&#x27;s Hugging Face page</a>. In <a href="https://github.com/NVIDIA/NeMo/tree/main/scripts/nlp_language_modeling">NVIDIA NeMo Framework</a> there are conversion scripts to convert the <code>hf</code> checkpoints of popular models like llama, falcon, mixtral or mpt to <code>nemo</code>.</p>
+<p>Run a <code>nemo</code> model on one GPU:</p>
+<pre><code>lm_eval --model nemo_lm \
+    --model_args path=&lt;path_to_nemo_model&gt; \
+    --tasks hellaswag \
+    --batch_size 32</code></pre>
+<p>It is recommended to unpack the <code>nemo</code> model to avoid the unpacking inside the docker container - it may overflow disk space. For that you can run:</p>
+<pre><code>mkdir MY_MODEL
+tar -xvf MY_MODEL.nemo -c MY_MODEL</code></pre>
+<h4 id="multi-gpu-evaluation-with-nvidia-nemo-models">Multi-GPU evaluation with NVIDIA <code>nemo</code> models</h4>
+<p>By default, only one GPU is used. But we do support either data replication or tensor/pipeline parallelism during evaluation, on one node.</p>
+<p>1) To enable data replication, set the <code>model_args</code> of <code>devices</code> to the number of data replicas to run. For example, the command to run 8 data replicas over 8 GPUs is:</p>
+<pre><code>torchrun --nproc-per-node=8 --no-python lm_eval \
+    --model nemo_lm \
+    --model_args path=&lt;path_to_nemo_model&gt;,devices=8 \
+    --tasks hellaswag \
+    --batch_size 32</code></pre>
+<p>1) To enable tensor and/or pipeline parallelism, set the <code>model_args</code> of <code>tensor_model_parallel_size</code> and/or <code>pipeline_model_parallel_size</code>. In addition, you also have to set up <code>devices</code> to be equal to the product of <code>tensor_model_parallel_size</code> and/or <code>pipeline_model_parallel_size</code>. For example, the command to use one node of 4 GPUs with tensor parallelism of 2 and pipeline parallelism of 2 is:</p>
+<pre><code>torchrun --nproc-per-node=4 --no-python lm_eval \
+    --model nemo_lm \
+    --model_args path=&lt;path_to_nemo_model&gt;,devices=4,tensor_model_parallel_size=2,pipeline_model_parallel_size=2 \
+    --tasks hellaswag \
+    --batch_size 32</code></pre>
+<p>Note that it is recommended to substitute the <code>python</code> command by <code>torchrun --nproc-per-node=&lt;number of devices&gt; --no-python</code> to facilitate loading the model into the GPUs. This is especially important for large checkpoints loaded into multiple GPUs.</p>
+<p>Not supported yet: multi-node evaluation and combinations of data replication with tensor or pipeline parallelism.</p>
+<h3 id="megatron-lm-models">Megatron-LM models</h3>
+<p><a href="https://github.com/NVIDIA/Megatron-LM">Megatron-LM</a> is NVIDIA's large-scale transformer training framework. This backend allows direct evaluation of Megatron-LM checkpoints without conversion.</p>
+<p><strong>Requirements:</strong></p>
+<ul><li>Megatron-LM must be installed or accessible via <code>MEGATRON_PATH</code> environment variable</li><li>PyTorch with CUDA support</li></ul>
+<p><strong>Setup:</strong></p>
+<pre><code># Set environment variable pointing to Megatron-LM installation
+export MEGATRON_PATH=/path/to/Megatron-LM</code></pre>
+<p><strong>Basic usage (single GPU):</strong></p>
+<pre><code>lm_eval --model megatron_lm \
+    --model_args load=/path/to/checkpoint,tokenizer_type=HuggingFaceTokenizer,tokenizer_model=/path/to/tokenizer \
+    --tasks hellaswag \
+    --batch_size 1</code></pre>
+<p><strong>Supported checkpoint formats:</strong></p>
+<ul><li>Standard Megatron checkpoints (<code>model_optim_rng.pt</code>)</li><li>Distributed checkpoints (<code>.distcp</code> format, auto-detected)</li></ul>
+<h4 id="parallelism-modes">Parallelism Modes</h4>
+<p>The Megatron-LM backend supports the following parallelism modes:</p>
+<table><thead><tr><th>Mode</th><th>Configuration</th><th>Description</th></tr></thead><tbody><tr><td>Single GPU</td><td><code>devices=1</code> (default)</td><td>Standard single GPU evaluation</td></tr><tr><td>Data Parallelism</td><td><code>devices&gt;1, TP=1</code></td><td>Each GPU has a full model replica, data is distributed</td></tr><tr><td>Tensor Parallelism</td><td><code>TP == devices</code></td><td>Model layers are split across GPUs</td></tr><tr><td>Expert Parallelism</td><td><code>EP == devices, TP=1</code></td><td>For MoE models, experts are distributed across GPUs</td></tr></tbody></table>
+<blockquote>[!Note] - Pipeline Parallelism (PP &gt; 1) is not currently supported. - Expert Parallelism (EP) cannot be combined with Tensor Parallelism (TP).</blockquote>
+<p><strong>Data Parallelism (4 GPUs, each with full model replica):</strong></p>
+<pre><code>torchrun --nproc-per-node=4 -m lm_eval --model megatron_lm \
+    --model_args load=/path/to/checkpoint,tokenizer_model=/path/to/tokenizer,devices=4 \
+    --tasks hellaswag</code></pre>
+<p><strong>Tensor Parallelism (TP=2):</strong></p>
+<pre><code>torchrun --nproc-per-node=2 -m lm_eval --model megatron_lm \
+    --model_args load=/path/to/checkpoint,tokenizer_model=/path/to/tokenizer,devices=2,tensor_model_parallel_size=2 \
+    --tasks hellaswag</code></pre>
+<p><strong>Expert Parallelism for MoE models (EP=4):</strong></p>
+<pre><code>torchrun --nproc-per-node=4 -m lm_eval --model megatron_lm \
+    --model_args load=/path/to/moe_checkpoint,tokenizer_model=/path/to/tokenizer,devices=4,expert_model_parallel_size=4 \
+    --tasks hellaswag</code></pre>
+<p><strong>Using extra_args for additional Megatron options:</strong></p>
+<pre><code>lm_eval --model megatron_lm \
+    --model_args load=/path/to/checkpoint,tokenizer_model=/path/to/tokenizer,extra_args=&quot;--no-rope-fusion --trust-remote-code&quot; \
+    --tasks hellaswag</code></pre>
+<blockquote>[!Note] The <code>--use-checkpoint-args</code> flag is enabled by default, which loads model architecture parameters from the checkpoint. For checkpoints converted via Megatron-Bridge, this typically includes all necessary model configuration.</blockquote>
+<h4 id="multi-gpu-evaluation-with-openvino-models">Multi-GPU evaluation with OpenVINO models</h4>
+<p>Pipeline parallelism during evaluation is supported with OpenVINO models</p>
+<p>To enable pipeline parallelism, set the <code>model_args</code> of <code>pipeline_parallel</code>. In addition, you also have to set up <code>device</code> to value <code>HETERO:&lt;GPU index1&gt;,&lt;GPU index2&gt;</code> for example <code>HETERO:GPU.1,GPU.0</code> For example, the command to use pipeline parallelism of 2 is:</p>
+<pre><code>lm_eval --model openvino \
+    --tasks wikitext \
+    --model_args pretrained=&lt;path_to_ov_model&gt;,pipeline_parallel=True \
+    --device HETERO:GPU.1,GPU.0</code></pre>
+<h3 id="tensor-data-parallel-and-optimized-inference-with-vllm">Tensor + Data Parallel and Optimized Inference with <code>vLLM</code></h3>
+<p>We also support vLLM for faster inference on <a href="https://docs.vllm.ai/en/latest/models/supported_models.html">supported model types</a>, especially faster when splitting a model across multiple GPUs. For single-GPU or multi-GPU — tensor parallel, data parallel, or a combination of both — inference, for example:</p>
+<pre><code>lm_eval --model vllm \
+    --model_args pretrained={model_name},tensor_parallel_size={GPUs_per_model},dtype=auto,gpu_memory_utilization=0.8,data_parallel_size={model_replicas} \
+    --tasks lambada_openai \
+    --batch_size auto</code></pre>
+<p>To use vllm, do <code>pip install &quot;lm_eval[vllm]&quot;</code>. For a full list of supported vLLM configurations, please reference our <a href="https://github.com/EleutherAI/lm-evaluation-harness/blob/e74ec966556253fbe3d8ecba9de675c77c075bce/lm_eval/models/vllm_causallms.py">vLLM integration</a> and the vLLM documentation.</p>
+<blockquote>[!Note] <code>data_parallel_size&gt;1</code> dispatches each replica as a separate <a href="https://github.com/ray-project/ray">ray</a> actor and requires <code>pip install ray</code>. Each actor reserves <code>tensor_parallel_size</code> GPUs (default 1).</blockquote>
+<p>vLLM occasionally differs in output from Huggingface. We treat Huggingface as the reference implementation and provide a script<span class="muted">（离线包中没有此文件）</span> for checking the validity of vllm results against HF.</p>
+<blockquote>[!Tip] For fastest performance, we recommend using <code>--batch_size auto</code> for vLLM whenever possible, to leverage its continuous batching functionality!</blockquote>
+<blockquote>[!Tip] Passing <code>max_model_len=4096</code> or some other reasonable default to vLLM through model args may cause speedups or prevent out-of-memory errors when trying to use auto batch size, such as for Mistral-7B-v0.1 which defaults to a maximum length of 32k.</blockquote>
+<h3 id="tensor-data-parallel-and-fast-offline-batching-inference-with-sglang">Tensor + Data Parallel and Fast Offline Batching Inference with <code>SGLang</code></h3>
+<p>We support SGLang for efficient offline batch inference. Its <strong><a href="https://docs.sglang.ai/index.html">Fast Backend Runtime</a></strong> delivers high performance through optimized memory management and parallel processing techniques. Key features include tensor parallelism, continuous batching, and support for various quantization methods (FP8/INT4/AWQ/GPTQ).</p>
+<p>To use SGLang as the evaluation backend, please <strong>install it in advance</strong> via SGLang documents <a href="https://docs.sglang.io/get_started/install.html#install-sglang">here</a>.</p>
+<blockquote>[!Tip] Due to the installing method of <a href="https://docs.flashinfer.ai/"><code>Flashinfer</code></a>-- a fast attention kernel library, we don't include the dependencies of <code>SGLang</code> within pyproject.toml<span class="muted">（离线包中没有此文件）</span>. Note that the <code>Flashinfer</code> also has some requirements on <code>torch</code> version.</blockquote>
+<p>SGLang's server arguments are slightly different from other backends, see <a href="https://docs.sglang.io/advanced_features/server_arguments.html">here</a> for more information. We provide an example of the usage here:</p>
+<pre><code>lm_eval --model sglang \
+    --model_args pretrained={model_name},dp_size={data_parallel_size},tp_size={tensor_parallel_size},dtype=auto \
+    --tasks gsm8k_cot \
+    --batch_size auto</code></pre>
+<blockquote>[!Tip] When encountering out-of-memory (OOM) errors (especially for multiple-choice tasks), try these solutions:  1. Use a manual <code>batch_size</code>, rather than <code>auto</code>. 2. Lower KV cache pool memory usage by adjusting <code>mem_fraction_static</code> - Add to your model arguments for example <code>--model_args pretrained=...,mem_fraction_static=0.7</code>. 3. Increase tensor parallel size <code>tp_size</code> (if using multiple GPUs).</blockquote>
+<h3 id="onnx-runtime-genai">ONNX Runtime GenAI</h3>
+<p>We support <strong>ONNX Runtime GenAI</strong> for cross-platform evaluation of ONNX LLMs produced by the <a href="https://onnxruntime.ai/docs/genai/howto/build-model.html">ONNX Runtime GenAI *Model Builder*</a>. Unlike the <a href="#windows-ml">Windows ML</a> backend, this backend runs on Linux, macOS, and Windows and selects execution providers with the cross-platform <code>og.Config</code> API (CPU, CUDA, DirectML, WebGPU, and AMD NPU via VitisAI/RyzenAI).</p>
+<p>Install the backend along with the execution-provider wheel that matches your hardware:</p>
+<pre><code># CPU
+pip install &quot;lm_eval[onnxruntime-genai]&quot;
+# CUDA / DirectML instead of the CPU wheel (mutually exclusive):
+#   pip install onnxruntime-genai-cuda
+#   pip install onnxruntime-genai-directml</code></pre>
+<p>Evaluate a Model Builder ONNX model on a chosen execution provider:</p>
+<pre><code>lm_eval --model onnxruntime-genai \
+    --model_args pretrained=/path/to/model_builder_output,execution_provider=cuda \
+    --tasks hellaswag \
+    --batch_size 1</code></pre>
+<p>The <code>pretrained</code> path is a Model Builder output directory (containing <code>genai_config.json</code>, the ONNX graph(s), and an HF tokenizer) or a <code>.onnx</code> file inside one. <code>execution_provider</code> defaults to <code>cpu</code> (which runs with no provider appended); pass <code>cuda</code>, <code>dml</code>, <code>VitisAI</code>, etc. for accelerators. Extra provider settings can be passed via <code>provider_options</code>.</p>
+<blockquote>[!Note] Supported architectures are whatever the Model Builder supports (Llama, Phi, Qwen, Gemma, Mistral, Granite, ChatGLM, …). Inference is batch-size 1 and runs one execution provider per run.</blockquote>
+<h3 id="onnx-runtime">ONNX Runtime</h3>
+<p>We also support running the <em>same</em> Model Builder export through a raw <code>onnxruntime.InferenceSession</code> instead of the GenAI loop. Use this backend when you want scores to come from the exact runtime a deployment uses, or when you need an execution provider that <code>onnxruntime-genai</code> does not build — notably <strong>ROCm</strong> and <strong>MIGraphX</strong> for AMD GPUs.</p>
+<pre><code># CPU
+pip install &quot;lm_eval[onnxruntime]&quot;
+# CUDA / ROCm instead of the CPU wheel (mutually exclusive):
+#   pip install onnxruntime-gpu
+#   pip install onnxruntime-rocm</code></pre>
+<pre><code>lm_eval --model onnxruntime \
+    --model_args pretrained=/path/to/model_builder_output,execution_provider=rocm \
+    --tasks hellaswag,arc_easy,wikitext \
+    --batch_size 1</code></pre>
+<p><code>execution_provider</code> accepts short aliases (<code>cpu</code>, <code>cuda</code>, <code>rocm</code>, <code>migraphx</code>, <code>dml</code>, <code>openvino</code>, <code>tensorrt</code>, <code>vitisai</code>, <code>webgpu</code>, <code>qnn</code>) as well as full ONNX Runtime provider names. As with the <code>onnxruntime-genai</code> backend, leaving it unset honors the providers declared in the export's <code>genai_config.json</code>, so an export built for a specific device runs there without extra flags. Non-CPU providers keep <code>CPUExecutionProvider</code> as a per-node fallback, since Model Builder graphs use contrib ops that not every provider implements.</p>
+<p>Because both ONNX backends share one scoring implementation and end up in the same ORT kernels, they agree on the same model and provider; <code>tests/models/test_onnxruntime_parity.py</code> enforces that as a standing check.</p>
+<blockquote>[!Note] This backend currently covers <code>loglikelihood</code>, <code>multiple_choice</code>, and <code>loglikelihood_rolling</code> (hellaswag, arc, mmlu, wikitext, …). For generative tasks such as gsm8k, use <code>--model onnxruntime-genai</code> with the same model directory.  The installed <code>onnxruntime</code> must be new enough to load the contrib-op schemas your Model Builder version emitted. An older runtime can reject the graph outright — for example a 12-input <code>GroupQueryAttention</code> fails to load on ONNX Runtime 1.22.</blockquote>
+<h3 id="windows-ml">Windows ML</h3>
+<p>We support <strong>Windows ML</strong> for hardware-accelerated inference on Windows platforms. This enables evaluation on CPU, GPU, and <strong>NPU (Neural Processing Unit)</strong> devices.</p>
+<p>Windows ML?
+<a href="https://learn.microsoft.com/en-us/windows/ai/new-windows-ml/overview">https://learn.microsoft.com/en-us/windows/ai/new-windows-ml/overview</a></p>
+<p>To use Windows ML, install the required dependencies:</p>
+<pre><code>pip install wasdk-Microsoft.Windows.AI.MachineLearning[all] wasdk-Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap onnxruntime-windowsml onnxruntime-genai-winml</code></pre>
+<p>Evaluate an ONNX Runtime GenAI LLM on NPU/GPU/CPU on Windows:</p>
+<pre><code>lm_eval --model winml \
+    --model_args pretrained=/path/to/onnx/model \
+    --tasks mmlu \
+    --batch_size 1</code></pre>
+<blockquote>[!Note] The Windows ML backend is ONLY for ONNX Runtime GenAI model format. Models targeting <code>transformers.js</code> won't work. You can verify this by finding the <code>genai_config.json</code> file in the model folder.</blockquote>
+<blockquote>[!Note] To run an ONNX Runtime GenAI model on the target device, you MUST convert the original model to that vendor and device type. Converted models won't work / work well on other vendor or device types. To learn more on model conversion, please visit <a href="https://code.visualstudio.com/docs/intelligentapps/modelconversion">Microsoft AI Tool Kit</a></blockquote>
+<h3 id="model-apis-and-inference-servers">Model APIs and Inference Servers</h3>
+<blockquote>[!Important] To use API-based models, first install: <code>pip install &quot;lm_eval[api]&quot;</code></blockquote>
+<p>Our library also supports the evaluation of models served via several commercial APIs, and we hope to implement support for the most commonly used performant local/self-hosted inference servers.</p>
+<p>To call a hosted model, use:</p>
+<pre><code>export OPENAI_API_KEY=YOUR_KEY_HERE
+lm_eval --model openai-completions \
+    --model_args model=davinci-002 \
+    --tasks lambada_openai,hellaswag</code></pre>
+<p>We also support using your own local inference server with servers that mirror the OpenAI Completions and ChatCompletions APIs.</p>
+<pre><code>lm_eval --model local-completions --tasks gsm8k --model_args model=facebook/opt-125m,base_url=http://{yourip}:8000/v1/completions,num_concurrent=1,max_retries=3,tokenized_requests=False,batch_size=16</code></pre>
+<p>Note that for externally hosted models, configs such as <code>--device</code> which relate to where to place a local model should not be used and do not function. Just like you can use <code>--model_args</code> to pass arbitrary arguments to the model constructor for local models, you can use it to pass arbitrary arguments to the model API for hosted models. See the documentation of the hosting service for information on what arguments they support.</p>
+<table><thead><tr><th>API or Inference Server</th><th>Implemented?</th><th><code>--model &lt;xxx&gt;</code> name</th><th>Models supported:</th><th>Request Types:</th></tr></thead><tbody><tr><td>OpenAI Completions</td><td>:heavy_check_mark:</td><td><code>openai-completions</code>, <code>local-completions</code></td><td>All OpenAI Completions API models</td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>OpenAI ChatCompletions</td><td>:heavy_check_mark:</td><td><code>openai-chat-completions</code>, <code>local-chat-completions</code></td><td><a href="https://platform.openai.com/docs/guides/gpt">All ChatCompletions API models</a></td><td><code>generate_until</code> (no logprobs)</td></tr><tr><td>Anthropic</td><td>:heavy_check_mark:</td><td><code>anthropic</code></td><td><a href="https://docs.anthropic.com/claude/reference/selecting-a-model">Supported Anthropic Engines</a></td><td><code>generate_until</code> (no logprobs)</td></tr><tr><td>Anthropic Chat</td><td>:heavy_check_mark:</td><td><code>anthropic-chat</code>, <code>anthropic-chat-completions</code></td><td><a href="https://docs.anthropic.com/claude/docs/models-overview">Supported Anthropic Engines</a></td><td><code>generate_until</code> (no logprobs)</td></tr><tr><td><a href="https://github.com/BerriAI/litellm">LiteLLM</a> (gateway to 100+ providers)</td><td>:heavy_check_mark:</td><td><code>litellm</code>, <code>litellm-chat</code>, <code>litellm-chat-completions</code></td><td><a href="https://docs.litellm.ai/docs/providers">All LiteLLM-supported providers</a></td><td><code>generate_until</code> (no logprobs)</td></tr><tr><td>Textsynth</td><td>:heavy_check_mark:</td><td><code>textsynth</code></td><td><a href="https://textsynth.com/documentation.html#engines">All supported engines</a></td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>Cohere</td><td><a href="https://github.com/EleutherAI/lm-evaluation-harness/pull/395">:hourglass: - blocked on Cohere API bug</a></td><td>N/A</td><td><a href="https://docs.cohere.com/docs/models">All <code>cohere.generate()</code> engines</a></td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td><a href="https://github.com/ggerganov/llama.cpp">Llama.cpp</a> (via <a href="https://github.com/abetlen/llama-cpp-python">llama-cpp-python</a>)</td><td>:heavy_check_mark:</td><td><code>gguf</code>, <code>ggml</code></td><td><a href="https://github.com/ggerganov/llama.cpp">All models supported by llama.cpp</a></td><td><code>generate_until</code>, <code>loglikelihood</code>, (perplexity evaluation not yet implemented)</td></tr><tr><td>vLLM</td><td>:heavy_check_mark:</td><td><code>vllm</code></td><td><a href="https://docs.vllm.ai/en/latest/models/supported_models.html">Most HF Causal Language Models</a></td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>Mamba</td><td>:heavy_check_mark:</td><td><code>mamba_ssm</code></td><td><a href="https://huggingface.co/state-spaces">Mamba architecture Language Models via the <code>mamba_ssm</code> package</a></td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>Huggingface Optimum (Causal LMs)</td><td>:heavy_check_mark:</td><td><code>openvino</code></td><td>Any decoder-only AutoModelForCausalLM converted with Huggingface Optimum into OpenVINO™ Intermediate Representation (IR) format</td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>Huggingface Optimum-intel IPEX (Causal LMs)</td><td>:heavy_check_mark:</td><td><code>ipex</code></td><td>Any decoder-only AutoModelForCausalLM</td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>Huggingface Optimum-habana (Causal LMs)</td><td>:heavy_check_mark:</td><td><code>habana</code></td><td>Any decoder-only AutoModelForCausalLM</td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>Neuron via AWS Inf2 (Causal LMs)</td><td>:heavy_check_mark:</td><td><code>neuronx</code></td><td>Any decoder-only AutoModelForCausalLM supported to run on <a href="https://aws.amazon.com/marketplace/pp/prodview-gr3e6yiscria2">huggingface-ami image for inferentia2</a></td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>NVIDIA NeMo</td><td>:heavy_check_mark:</td><td><code>nemo_lm</code></td><td><a href="https://docs.nvidia.com/nemo-framework/user-guide/24.09/nemotoolkit/core/core.html#nemo-models">All supported models</a></td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>NVIDIA Megatron-LM</td><td>:heavy_check_mark:</td><td><code>megatron_lm</code></td><td><a href="https://github.com/NVIDIA/Megatron-LM">Megatron-LM GPT models</a> (standard and distributed checkpoints)</td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>Watsonx.ai</td><td>:heavy_check_mark:</td><td><code>watsonx_llm</code></td><td><a href="https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-models.html?context=wx">Supported Watsonx.ai Engines</a></td><td><code>generate_until</code> <code>loglikelihood</code></td></tr><tr><td>ONNX Runtime GenAI</td><td>:heavy_check_mark:</td><td><code>onnxruntime-genai</code></td><td><a href="https://onnxruntime.ai/docs/genai/howto/build-model.html">ONNX models in GenAI format</a> (cross-platform: CPU/CUDA/DirectML/NPU)</td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>ONNX Runtime</td><td>:heavy_check_mark:</td><td><code>onnxruntime</code></td><td><a href="https://onnxruntime.ai/docs/genai/howto/build-model.html">ONNX models in GenAI format</a> via a raw <code>InferenceSession</code> (adds ROCm/MIGraphX)</td><td><code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>Windows ML</td><td>:heavy_check_mark:</td><td><code>winml</code></td><td><a href="https://code.visualstudio.com/docs/intelligentapps/modelconversion">ONNX models in GenAI format</a></td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr><tr><td>Your local inference server!<span class="muted">（离线包中没有此文件）</span></td><td>:heavy_check_mark:</td><td><code>local-completions</code> or <code>local-chat-completions</code></td><td>Support for OpenAI API-compatible servers, with easy customization for other APIs.</td><td><code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code></td></tr></tbody></table>
+<p>Models which do not supply logits or logprobs can be used with tasks of type <code>generate_until</code> only, while local models, or APIs that supply logprobs/logits of their prompts, can be run on all task types: <code>generate_until</code>, <code>loglikelihood</code>, <code>loglikelihood_rolling</code>, and <code>multiple_choice</code>.</p>
+<p>For more information on the different task <code>output_types</code> and model request types, see <a href="https://github.com/EleutherAI/lm-evaluation-harness/blob/main/docs/model_guide.md#interface">our documentation</a>.</p>
+<blockquote>[!Note] For best performance with closed chat model APIs such as Anthropic Claude 3 and GPT-4, we recommend carefully looking at a few sample outputs using <code>--limit 10</code> first to confirm answer extraction and scoring on generative tasks is performing as expected. providing <code>system=&quot;&lt;some system prompt here&gt;&quot;</code> within <code>--model_args</code> for anthropic-chat-completions, to instruct the model what format to respond in, may be useful.</blockquote>
+<h3 id="other-frameworks">Other Frameworks</h3>
+<p>A number of other libraries contain scripts for calling the eval harness through their library. These include <a href="https://github.com/EleutherAI/gpt-neox/blob/main/eval_tasks/eval_adapter.py">GPT-NeoX</a>, <a href="https://github.com/microsoft/Megatron-DeepSpeed/blob/main/examples/MoE/readme_evalharness.md">Megatron-DeepSpeed</a>, and <a href="https://github.com/kingoflolz/mesh-transformer-jax/blob/master/eval_harness.py">mesh-transformer-jax</a>.</p>
+<p>To create your own custom integration you can follow instructions from <a href="https://github.com/EleutherAI/lm-evaluation-harness/blob/main/docs/interface.md#external-library-usage">this tutorial</a>.</p>
+<h3 id="additional-features">Additional Features</h3>
+<blockquote>[!Note] For tasks unsuitable for direct evaluation — either due risks associated with executing untrusted code or complexities in the evaluation process — the <code>--predict_only</code> flag is available to obtain decoded generations for post-hoc evaluation.</blockquote>
+<p>If you have a Metal compatible Mac, you can run the eval harness using the MPS back-end by replacing <code>--device cuda:0</code> with <code>--device mps</code> (requires PyTorch version 2.1 or higher). <strong>Note that the PyTorch MPS backend is still in early stages of development, so correctness issues or unsupported operations may exist. If you observe oddities in model performance on the MPS back-end, we recommend first checking that a forward pass of your model on <code>--device cpu</code> and <code>--device mps</code> match.</strong></p>
+<blockquote>[!Note] You can inspect what the LM inputs look like by running the following command:  ``<code>bash python write_out.py \ --tasks &lt;task1,task2,...&gt; \ --num_fewshot 5 \ --num_examples 10 \ --output_base_path /path/to/output/folder </code>``  This will write out one text file for each task.</blockquote>
+<p>To verify the data integrity of the tasks you're performing in addition to running the tasks themselves, you can use the <code>--check_integrity</code> flag:</p>
+<pre><code>lm_eval --model openai \
+    --model_args engine=davinci-002 \
+    --tasks lambada_openai,hellaswag \
+    --check_integrity</code></pre>
+<h2 id="advanced-usage-tips">Advanced Usage Tips</h2>
+<p>For models loaded with the HuggingFace  <code>transformers</code> library, any arguments provided via <code>--model_args</code> get passed to the relevant constructor directly. This means that anything you can do with <code>AutoModel</code> can be done with our library. For example, you can pass a local path via <code>pretrained=</code> or use models finetuned with <a href="https://github.com/huggingface/peft">PEFT</a> by taking the call you would run to evaluate the base model and add <code>,peft=PATH</code> to the <code>model_args</code> argument:</p>
+<pre><code>lm_eval --model hf \
+    --model_args pretrained=EleutherAI/gpt-j-6b,parallelize=True,load_in_4bit=True,peft=nomic-ai/gpt4all-j-lora \
+    --tasks openbookqa,arc_easy,winogrande,hellaswag,arc_challenge,piqa,boolq \
+    --device cuda:0</code></pre>
+<p>Models provided as delta weights can be easily loaded using the Hugging Face transformers library. Within --model_args, set the delta argument to specify the delta weights, and use the pretrained argument to designate the relative base model to which they will be applied:</p>
+<pre><code>lm_eval --model hf \
+    --model_args pretrained=Ejafa/llama_7B,delta=lmsys/vicuna-7b-delta-v1.1 \
+    --tasks hellaswag</code></pre>
+<p>GPTQ quantized models can be loaded using <a href="https://github.com/ModelCloud/GPTQModel">GPTQModel</a> (faster) or <a href="https://github.com/PanQiWei/AutoGPTQ">AutoGPTQ</a></p>
+<p>GPTQModel: add <code>,gptqmodel=True</code> to <code>model_args</code></p>
+<pre><code>lm_eval --model hf \
+    --model_args pretrained=model-name-or-path,gptqmodel=True \
+    --tasks hellaswag</code></pre>
+<p>AutoGPTQ: add <code>,autogptq=True</code> to <code>model_args</code>:</p>
+<pre><code>lm_eval --model hf \
+    --model_args pretrained=model-name-or-path,autogptq=model.safetensors,gptq_use_triton=True \
+    --tasks hellaswag</code></pre>
+<p>We support wildcards in task names, for example you can run all of the machine-translated lambada tasks via <code>--task lambada_openai_mt_*</code>.</p>
+<h2 id="saving-caching-results">Saving &amp; Caching Results</h2>
+<p>To save evaluation results provide an <code>--output_path</code>. We also support logging model responses with the <code>--log_samples</code> flag for post-hoc analysis.</p>
+<blockquote>[!TIP] Use <code>--use_cache &lt;DIR&gt;</code> to cache evaluation results and skip previously evaluated samples when resuming runs of the same (model, task) pairs. Note that caching is rank-dependent, so restart with the same GPU count if interrupted. You can also use --cache_requests to save dataset preprocessing steps for faster evaluation resumption.</blockquote>
+<p>To push results and samples to the Hugging Face Hub, first ensure an access token with write access is set in the <code>HF_TOKEN</code> environment variable. Then, use the <code>--hf_hub_log_args</code> flag to specify the organization, repository name, repository visibility, and whether to push results and samples to the Hub - <a href="https://huggingface.co/datasets/KonradSzafer/lm-eval-results-demo">example dataset on the  HF Hub</a>. For instance:</p>
+<pre><code>lm_eval --model hf \
+    --model_args pretrained=model-name-or-path,autogptq=model.safetensors,gptq_use_triton=True \
+    --tasks hellaswag \
+    --log_samples \
+    --output_path results \
+    --hf_hub_log_args hub_results_org=EleutherAI,hub_repo_name=lm-eval-results,push_results_to_hub=True,push_samples_to_hub=True,public_repo=False \</code></pre>
+<p>This allows you to easily download the results and samples from the Hub, using:</p>
+<pre><code>from datasets import load_dataset
+
+load_dataset(&quot;EleutherAI/lm-eval-results-private&quot;, &quot;hellaswag&quot;, &quot;latest&quot;)</code></pre>
+<p>For a full list of supported arguments, check out the <a href="https://github.com/EleutherAI/lm-evaluation-harness/blob/main/docs/interface.md">interface</a> guide in our documentation!</p>
+<h2 id="visualizing-results">Visualizing Results</h2>
+<p>You can seamlessly visualize and analyze the results of your evaluation harness runs using both Weights &amp; Biases (W&amp;B) and Zeno.</p>
+<h3 id="zeno">Zeno</h3>
+<p>You can use <a href="https://zenoml.com">Zeno</a> to visualize the results of your eval harness runs.</p>
+<p>First, head to <a href="https://hub.zenoml.com">hub.zenoml.com</a> to create an account and get an API key <a href="https://hub.zenoml.com/account">on your account page</a>.
+Add this key as an environment variable:</p>
+<pre><code>export ZENO_API_KEY=[your api key]</code></pre>
+<p>You'll also need to install the <code>lm_eval[zeno]</code> package extra.</p>
+<p>To visualize the results, run the eval harness with the <code>log_samples</code> and <code>output_path</code> flags.
+We expect <code>output_path</code> to contain multiple folders that represent individual model names.
+You can thus run your evaluation on any number of tasks and models and upload all of the results as projects on Zeno.</p>
+<pre><code>lm_eval \
+    --model hf \
+    --model_args pretrained=EleutherAI/gpt-j-6B \
+    --tasks hellaswag \
+    --device cuda:0 \
+    --batch_size 8 \
+    --log_samples \
+    --output_path output/gpt-j-6B</code></pre>
+<p>Then, you can upload the resulting data using the <code>zeno_visualize</code> script:</p>
+<pre><code>python scripts/zeno_visualize.py \
+    --data_path output \
+    --project_name &quot;Eleuther Project&quot;</code></pre>
+<p>This will use all subfolders in <code>data_path</code> as different models and upload all tasks within these model folders to Zeno.
+If you run the eval harness on multiple tasks, the <code>project_name</code> will be used as a prefix and one project will be created per task.</p>
+<p>You can find an example of this workflow in examples/visualize-zeno.ipynb<span class="muted">（离线包中没有此文件）</span>.</p>
+<h3 id="weights-and-biases">Weights and Biases</h3>
+<p>With the <a href="https://wandb.ai/site">Weights and Biases</a> integration, you can now spend more time extracting deeper insights into your evaluation results. The integration is designed to streamline the process of logging and visualizing experiment results using the Weights &amp; Biases (W&amp;B) platform.</p>
+<p>The integration provide functionalities</p>
+<ul><li>to automatically log the evaluation results,</li><li>log the samples as W&amp;B Tables for easy visualization,</li><li>log the <code>results.json</code> file as an artifact for version control,</li><li>log the <code>&lt;task_name&gt;_eval_samples.json</code> file if the samples are logged,</li><li>generate a comprehensive report for analysis and visualization with all the important metric,</li><li>log task and cli specific configs,</li><li>and more out of the box like the command used to run the evaluation, GPU/CPU counts, timestamp, etc.</li></ul>
+<p>First you'll need to install the lm_eval[wandb] package extra. Do <code>pip install lm_eval[wandb]</code>.</p>
+<p>Authenticate your machine with an your unique W&amp;B token. Visit <a href="https://wandb.ai/authorize">https://wandb.ai/authorize</a> to get one. Do <code>wandb login</code> in your command line terminal.</p>
+<p>Run eval harness as usual with a <code>wandb_args</code> flag. Use this flag to provide arguments for initializing a wandb run (<a href="https://docs.wandb.ai/ref/python/init">wandb.init</a>) as comma separated string arguments.</p>
+<pre><code>lm_eval \
+    --model hf \
+    --model_args pretrained=microsoft/phi-2,trust_remote_code=True \
+    --tasks hellaswag,mmlu_abstract_algebra \
+    --device cuda:0 \
+    --batch_size 8 \
+    --output_path output/phi-2 \
+    --limit 10 \
+    --wandb_args project=lm-eval-harness-integration \
+    --log_samples</code></pre>
+<p>In the stdout, you will find the link to the W&amp;B run page as well as link to the generated report. You can find an example of this workflow in examples/visualize-wandb.ipynb<span class="muted">（离线包中没有此文件）</span>, and an example of how to integrate it beyond the CLI.</p>
+<h2 id="contributing">Contributing</h2>
+<p>Check out our <a href="https://github.com/EleutherAI/lm-evaluation-harness/issues">open issues</a> and feel free to submit pull requests!</p>
+<p>For more information on the library and how everything fits together, see our <a href="https://github.com/EleutherAI/lm-evaluation-harness/tree/main/docs">documentation pages</a>.</p>
+<p>To get started with development, first clone the repository and install the dev dependencies:</p>
+<pre><code>git clone https://github.com/EleutherAI/lm-evaluation-harness
+cd lm-evaluation-harness
+pip install -e &quot;.[dev,hf]&quot;</code></pre>
+<h3 id="implementing-new-tasks">Implementing new tasks</h3>
+<p>To implement a new task in the eval harness, see this guide<span class="muted">（离线包中没有此文件）</span>.</p>
+<p>In general, we follow this priority list for addressing concerns about prompting and other eval details:</p>
+<ol><li>If there is widespread agreement among people who train LLMs, use the agreed upon procedure.</li><li>If there is a clear and unambiguous official implementation, use that procedure.</li><li>If there is widespread agreement among people who evaluate LLMs, use the agreed upon procedure.</li><li>If there are multiple common implementations but not universal or widespread agreement, use our preferred option among the common implementations. As before, prioritize choosing from among the implementations found in LLM training papers.</li></ol>
+<p>These are guidelines and not rules, and can be overruled in special circumstances.</p>
+<p>We try to prioritize agreement with the procedures used by other groups to decrease the harm when people inevitably compare runs across different papers despite our discouragement of the practice. Historically, we also prioritized the implementation from <a href="https://arxiv.org/abs/2005.14165">Language Models are Few Shot Learners</a> as our original goal was specifically to compare results with that paper.</p>
+<h3 id="support">Support</h3>
+<p>The best way to get support is to open an issue on this repo or join the <a href="https://discord.gg/eleutherai">EleutherAI Discord server</a>. The <code>#lm-thunderdome</code> channel is dedicated to developing this project and the <code>#release-discussion</code> channel is for receiving support for our releases. If you've used the library and have had a positive (or negative) experience, we'd love to hear from you!</p>
+<h2 id="optional-extras">Optional Extras</h2>
+<p>Extras dependencies can be installed via <code>pip install -e &quot;.[NAME]&quot;</code></p>
+<h3 id="model-backends">Model Backends</h3>
+<p>These extras install dependencies required to run specific model backends:</p>
+<table><thead><tr><th>NAME</th><th>Description</th></tr></thead><tbody><tr><td>hf</td><td>HuggingFace Transformers (torch, transformers, accelerate, peft)</td></tr><tr><td>vllm</td><td>vLLM fast inference</td></tr><tr><td>api</td><td>API models (OpenAI, Anthropic, local servers)</td></tr><tr><td>gptq</td><td>AutoGPTQ quantized models</td></tr><tr><td>gptqmodel</td><td>GPTQModel quantized models</td></tr><tr><td>ibm_watsonx_ai</td><td>IBM watsonx.ai models</td></tr><tr><td>ipex</td><td>Intel IPEX backend</td></tr><tr><td>habana</td><td>Intel Gaudi backend</td></tr><tr><td>optimum</td><td>Intel OpenVINO models</td></tr><tr><td>neuronx</td><td>AWS Inferentia2 instances</td></tr><tr><td>onnxruntime-genai</td><td>ONNX Runtime GenAI (cross-platform) - CPU/CUDA/DirectML/NPU</td></tr><tr><td>onnxruntime</td><td>ONNX Runtime raw session - adds ROCm/MIGraphX</td></tr><tr><td>winml</td><td>Windows ML (ONNX Runtime GenAI) - CPU/GPU/NPU</td></tr><tr><td>sparsify</td><td>Sparsify model steering</td></tr><tr><td>sae_lens</td><td>SAELens model steering</td></tr></tbody></table>
+<h3 id="task-dependencies">Task Dependencies</h3>
+<p>These extras install dependencies required for specific evaluation tasks:</p>
+<table><thead><tr><th>NAME</th><th>Description</th></tr></thead><tbody><tr><td>tasks</td><td>All task-specific dependencies</td></tr><tr><td>acpbench</td><td>ACP Bench tasks</td></tr><tr><td>audiolm_qwen</td><td>Qwen2 audio models</td></tr><tr><td>ifeval</td><td>IFEval task</td></tr><tr><td>japanese_leaderboard</td><td>Japanese LLM tasks</td></tr><tr><td>longbench</td><td>LongBench tasks</td></tr><tr><td>math</td><td>Math answer checking</td></tr><tr><td>multilingual</td><td>Multilingual tokenizers</td></tr><tr><td>ruler</td><td>RULER tasks</td></tr></tbody></table>
+<h3 id="development-utilities">Development &amp; Utilities</h3>
+<table><thead><tr><th>NAME</th><th>Description</th></tr></thead><tbody><tr><td>dev</td><td>Linting &amp; contributions</td></tr><tr><td>hf_transfer</td><td>Speed up HF downloads</td></tr><tr><td>sentencepiece</td><td>Sentencepiece tokenizer</td></tr><tr><td>unitxt</td><td>Unitxt tasks</td></tr><tr><td>wandb</td><td>Weights &amp; Biases logging</td></tr><tr><td>zeno</td><td>Zeno result visualization</td></tr></tbody></table>
+<h2 id="cite-as">Cite as</h2>
+<pre><code>@misc{eval-harness,
+  author       = {Gao, Leo and Tow, Jonathan and Abbasi, Baber and Biderman, Stella and Black, Sid and DiPofi, Anthony and Foster, Charles and Golding, Laurence and Hsu, Jeffrey and Le Noac&#x27;h, Alain and Li, Haonan and McDonell, Kyle and Muennighoff, Niklas and Ociepa, Chris and Phang, Jason and Reynolds, Laria and Schoelkopf, Hailey and Skowron, Aviya and Sutawika, Lintang and Tang, Eric and Thite, Anish and Wang, Ben and Wang, Kevin and Zou, Andy},
+  title        = {The Language Model Evaluation Harness},
+  month        = 07,
+  year         = 2024,
+  publisher    = {Zenodo},
+  version      = {v0.4.3},
+  doi          = {10.5281/zenodo.12608602},
+  url          = {https://zenodo.org/records/12608602}
+}</code></pre>
+</body></html>

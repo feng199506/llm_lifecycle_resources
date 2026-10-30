@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>7 推理优化</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="07_inference_cn.md">07_inference_cn.md</a></div>
+<h1 id="7-推理优化">7 推理优化</h1>
+<h2 id="prefill-decode">Prefill / Decode</h2>
+<p>Prefill：整段提示一次前向，计算重、易批处理。Decode：逐步生成，易受内存带宽限制。长上下文时 KV 随 seq 线性增，成本与延迟都升——L03 用估算表，<strong>未测</strong>。</p>
+<h2 id="技术与文献">技术与文献</h2>
+<table><thead><tr><th>技术</th><th>公开确认</th><th>本库</th></tr></thead><tbody><tr><td>动态批处理 / PagedAttention</td><td><a href="../../_public/papers/llm/2309_06180_vLLM_PagedAttention.pdf" title="本地 PDF">2309.06180</a> vLLM</td><td>源码包；Linux+CUDA 为主</td></tr><tr><td>量化 GPTQ/AWQ/SmoothQuant</td><td><a href="../../_public/papers/llm/2210_17323_GPTQ.pdf" title="本地 PDF">2210.17323</a> / <a href="../../_public/papers/llm/2306_00978_AWQ.pdf" title="本地 PDF">2306.00978</a> / <a href="../../_public/papers/llm/2211_10438_SmoothQuant.pdf" title="本地 PDF">2211.10438</a></td><td>L03 对比 GGUF 档位</td></tr><tr><td>推测解码</td><td><a href="../../_public/papers/llm/2211_17192_Speculative_decoding.pdf" title="本地 PDF">2211.17192</a></td><td>文档；本轮不跑</td></tr><tr><td>前缀缓存</td><td>vLLM/sglang 文档</td><td>服务配置项</td></tr><tr><td>结构化生成</td><td>Outlines 等</td><td>L04 JSON schema（规则或提示，不保证小模型遵守）</td></tr><tr><td>工具调用</td><td>模型卡 + Agent 专题</td><td>L05；小模型常失败</td></tr></tbody></table>
+<p>GGUF Q4_K_M 是 llama.cpp 量化，<strong>第三方格式</strong>，不是原厂训练精度。</p>
+</body></html>

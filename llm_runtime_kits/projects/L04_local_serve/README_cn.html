@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>L04 本地模型服务：流式与结构化输出</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="README_cn.md">README_cn.md</a></div>
+<h1 id="l04-本地模型服务-流式与结构化输出">L04 本地模型服务：流式与结构化输出</h1>
+<p>状态：<strong>已整理，未启动服务。</strong><br>
+默认 <code>LLM_MODE=mock</code>，无需权重。本地模式需先起 llama-server（脚本未执行）。</p>
+<p>Linux CPU 主路径；Windows 可用 mock。GPU 见 COMPAT。</p>
+<pre><code># 未执行
+.venv/bin/uvicorn src.server:app --host 127.0.0.1 --port 8090
+.venv/bin/python src/client_stream.py</code></pre>
+</body></html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>L02 小型开放模型：指令微调、LoRA、偏好优化</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="README_cn.md">README_cn.md</a></div>
+<h1 id="l02-小型开放模型-指令微调-lora-偏好优化">L02 小型开放模型：指令微调、LoRA、偏好优化</h1>
+<p>状态：<strong>已整理，未运行验证。</strong><br>
+训练主平台：<strong>Linux x86-64 CPU</strong>（极慢，仅流程演示）。Windows CPU 不作为一等支持。GPU 可选但本轮未下 CUDA wheel。</p>
+<p>模型：<code>HuggingFaceTB/SmolLM2-135M-Instruct</code>（Apache-2.0，开放权重，<strong>不是</strong>完整训练开源）。<br>
+本专题只保留分词器/配置，权重地址：<a href="../../models/hf_small/SmolLM2-135M-Instruct/model.safetensors.url.txt"><code>../../models/hf_small/SmolLM2-135M-Instruct/model.safetensors.url.txt</code></a>。要跑 L02 需自行下载权重。<br>
+估算（未测）：CPU RAM ≥ 8 GiB；勿在 8GB 机器上开大 batch。</p>
+<pre><code># 未执行
+.venv/bin/python src/run_sft_lora.py --config config/sft_lora.json
+.venv/bin/python src/run_dpo.py --config config/dpo.json</code></pre>
+<p>数据：<code>fixtures/*.jsonl</code> 合成。细节哪些来自原论文：见专题 <code>theory/05_posttraining_cn.md</code>。TRL 默认超参是框架，不是 SmolLM2 原厂配方。</p>
+</body></html>

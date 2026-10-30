@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>L01 从零实现并训练小型 Transformer</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="README_cn.md">README_cn.md</a></div>
+<h1 id="l01-从零实现并训练小型-transformer">L01 从零实现并训练小型 Transformer</h1>
+<p>状态：<strong>已整理，未运行验证。</strong><br>
+平台：Linux / Windows CPU。无 GPU 要求。内存估算：约 0.5–2 GiB（batch=8、seq=64、d=64，条件写在 <a href="config/train.json"><code>config/train.json</code></a>）。</p>
+<h2 id="目标">目标</h2>
+<p>字符级分词 + 单层解码器，在 <a href="fixtures/corpus.txt"><code>fixtures/corpus.txt</code></a> 上最小化训练，理解 embedding、注意力、残差、CE loss、检查点。<strong>不是</strong> GPT-4/Qwen 预训练。</p>
+<h2 id="依赖">依赖</h2>
+<p><a href="environments/py310_linux/"><code>environments/py310_linux</code></a> 或 <code>py312_linux</code>（及 windows 对应目录）。本轮只下载 wheel，未建 venv。</p>
+<pre><code># 未执行。示例：
+python -m venv .venv
+.venv/bin/pip install --no-index --find-links environments/py312_linux/wheelhouse -r environments/py312_linux/requirements_direct_en.txt
+.venv/bin/python src/train.py --config config/train.json
+.venv/bin/python src/generate.py --ckpt work/ckpt.pt --prompt &quot;hello&quot;</code></pre>
+<p>数据来源：本目录合成英语短句，许可：与专题原创文档相同。排错：见 <a href="troubleshoot_cn.html"><code>troubleshoot_cn.md</code></a>。</p>
+</body></html>

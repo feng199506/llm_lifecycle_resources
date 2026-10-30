@@ -1,0 +1,14 @@
+{
+  "seed": 0,
+  "seq_len": 64,
+  "batch_size": 8,
+  "d_model": 64,
+  "n_head": 4,
+  "n_layer": 2,
+  "d_ff": 256,
+  "steps": 200,
+  "lr": 0.001,
+  "corpus": "fixtures/corpus.txt",
+  "ckpt": "work/ckpt.pt",
+  "note": "resource estimate unverified: CPU RAM 0.5-2 GiB for this config"
+}

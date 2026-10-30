@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Qwen（通义千问）</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="qwen_cn.md">qwen_cn.md</a></div>
+<h1 id="qwen-通义千问">Qwen（通义千问）</h1>
+<p>检索日 <strong>2026-10-30</strong>。官方 <code>Qwen</code> / <code>QwenLM</code>。多数开放权重为 Apache-2.0，<strong>不是</strong>完整数据与训练日志开源。</p>
+<table><thead><tr><th>完整名称</th><th>类型</th><th>论文/时间</th><th>许可</th><th>本库权重</th></tr></thead><tbody><tr><td>Qwen2.5-0.5B-Instruct</td><td>指令</td><td><a href="../../_public/papers/llm/2412_15115_Qwen2_5.pdf" title="本地 PDF">2412.15115</a>（2025-01-03 提交）</td><td>Apache-2.0</td><td>GGUF/HF <strong>只记 URL</strong>；分词器已保存</td></tr><tr><td>Qwen2.5-1.5B/3B-Instruct</td><td>指令</td><td>同上</td><td>0.5/1.5B Apache；<strong>3B 为 Qwen Research</strong></td><td>GGUF <strong>只记 URL</strong></td></tr><tr><td>Qwen2.5-7B-Instruct</td><td>指令</td><td>同上；上下文 128K</td><td>Apache-2.0</td><td>本轮不下载 7B，作 GPU 档说明</td></tr><tr><td>Qwen2.5-Coder / Qwen2.5-VL</td><td>代码 / 多模态</td><td>系列卡</td><td>见各尺寸许可</td><td>文献覆盖，不下全尺寸</td></tr><tr><td>Qwen3-0.6B</td><td>基础（含思考/非思考模式）</td><td><a href="../../_public/papers/llm/2505_09388_Qwen3.pdf" title="本地 PDF">2505.09388</a>（2025-05-14）</td><td>Apache-2.0（报告称全部 Qwen3 公开 Apache-2.0）</td><td>官方 GGUF <strong>只记 URL</strong>（<code>Qwen3-0.6B-Q8_0.gguf.url.txt</code>）</td></tr><tr><td>Qwen3 MoE 至 235B</td><td>代表阅读</td><td>同上</td><td>Apache-2.0</td><td>不下权重</td></tr></tbody></table>
+<p>训练：报告描述稠密+MoE、思考模式与 thinking budget。数据配比细节仍多为报告级，复现全量预训练为 <strong>推测或未知</strong>。<br>
+推理：transformers / llama.cpp / vLLM。分词器单独保存在 <code>models/tokenizers/Qwen3-0.6B/</code>。</p>
+</body></html>

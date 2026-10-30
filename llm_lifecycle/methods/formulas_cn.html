@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>关键公式（教学用）</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+<script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"],["$$","$$"]]}};</script>
+<script defer src="../../_offline_libs/mathjax-3.2.2/es5/tex-mml-chtml.js"></script>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="formulas_cn.md">formulas_cn.md</a></div>
+<h1 id="关键公式-教学用">关键公式（教学用）</h1>
+<p>均来自公开论文；实现以 L01 代码为准，不是某闭源内核。</p>
+<p><strong>交叉熵</strong> \(\mathcal{L}=-\sum_t \log p_\theta(x_t\mid x_{&lt;t})\)</p>
+<p><strong>缩放点积注意力</strong> \(\mathrm{softmax}(QK^\top/\sqrt{d_k})V\)  （<a href="../../_public/papers/llm/1706_03762_Attention_is_All_You_Need.pdf" title="本地 PDF">1706.03762</a>）</p>
+<p><strong>LoRA</strong> \(W'=W+\frac{\alpha}{r}BA\)  （<a href="../../_public/papers/llm/2106_09685_LoRA.pdf" title="本地 PDF">2106.09685</a>）</p>
+<p><strong>DPO</strong> 对偏好对 \((x,y_w,y_l)\) 的 logistic 目标见 <a href="../../_public/papers/llm/2305_18290_DPO.pdf" title="本地 PDF">2305.18290</a> 原文式 (7)。β 是超参，不是「越大越对齐」。</p>
+<p><strong>PPO 裁剪</strong> 见 <a href="../../_public/papers/llm/1707_06347_PPO.pdf" title="本地 PDF">1707.06347</a>。RLHF 还要加 KL 到参考模型（InstructGPT 叙述）。</p>
+<p><strong>GRPO</strong> 见 DeepSeekMath <a href="../../_public/papers/llm/2402_03300_DeepSeekMath.pdf" title="本地 PDF">2402.03300</a>；组内相对优势，无独立 critic——以该论文为准。</p>
+<p><strong>Chinchilla</strong> 最优 token 数随参数量近似线性（<a href="../../_public/papers/llm/2203_15556_Chinchilla.pdf" title="本地 PDF">2203.15556</a> 拟合），后续模型可偏离。</p>
+</body></html>

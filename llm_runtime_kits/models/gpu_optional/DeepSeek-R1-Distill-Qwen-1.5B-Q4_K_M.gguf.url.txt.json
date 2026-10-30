@@ -1,0 +1,23 @@
+{
+  "url": "https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-1.5B-GGUF/resolve/main/DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf?download=true",
+  "retrieved": "2026-10-30",
+  "downloaded": false,
+  "policy": "url_only_no_weight_file",
+  "id": "ds_r1_distill_qwen15_q4km",
+  "tier": "gpu_optional",
+  "repo": "bartowski/DeepSeek-R1-Distill-Qwen-1.5B-GGUF",
+  "file": "DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf",
+  "license": "MIT (DeepSeek-R1 distill)",
+  "hw": "CPU RAM 约 3–4 GiB 或 GPU VRAM ≥ 3 GiB；本机未测",
+  "fmt": "GGUF Q4_K_M（第三方量化，非官方预量化包）",
+  "ctx": "见 DeepSeek-R1 论文蒸馏设定；本机未测",
+  "dest": "gpu_optional",
+  "public": true,
+  "alts": [
+    {
+      "repo": "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-GGUF",
+      "file": "DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf",
+      "url": "https://huggingface.co/unsloth/DeepSeek-R1-Distill-Qwen-1.5B-GGUF/resolve/main/DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf?download=true"
+    }
+  ]
+}

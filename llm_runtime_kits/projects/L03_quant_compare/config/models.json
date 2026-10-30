@@ -1,0 +1,33 @@
+{
+  "prompt": "用一句话解释 KV cache。",
+  "n_predict": 32,
+  "models": [
+    {
+      "id": "qwen25_05b_q4km",
+      "path": "../../../models/cpu_baseline/qwen2.5-0.5b-instruct-q4_k_m.gguf",
+      "quant": "Q4_K_M",
+      "license": "Apache-2.0",
+      "fmt": "GGUF",
+      "ram_est_gib": "1-2 (unverified)",
+      "ctx": 4096
+    },
+    {
+      "id": "qwen3_06b_q8",
+      "path": "../../../models/cpu_baseline/Qwen3-0.6B-Q8_0.gguf",
+      "quant": "Q8_0",
+      "license": "Apache-2.0",
+      "fmt": "GGUF official",
+      "ram_est_gib": "1.5-2.5 (unverified)",
+      "ctx": 4096
+    },
+    {
+      "id": "tinyllama_q4km",
+      "path": "../../../models/cpu_baseline/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf",
+      "quant": "Q4_K_M",
+      "license": "Apache-2.0",
+      "fmt": "GGUF third-party quant",
+      "ram_est_gib": "1.5-2.5 (unverified)",
+      "ctx": 2048
+    }
+  ]
+}

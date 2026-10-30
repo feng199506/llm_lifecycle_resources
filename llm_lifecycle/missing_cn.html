@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>仍缺内容与未验证项</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="missing_cn.md">missing_cn.md</a></div>
+<h1 id="仍缺内容与未验证项">仍缺内容与未验证项</h1>
+<p>检索日 <strong>2026-10-30</strong>。本轮不以下载容量代替完成度。覆盖条目见 <a href="coverage_cn.html"><code>coverage_cn.md</code></a>。</p>
+<h2 id="有意不做">有意不做</h2>
+<ul><li><strong>不下载模型权重</strong>（GGUF / safetensors 等），只写官方或 Hugging Face 地址</li><li>不下载全系列全部历史尺寸与量化档</li><li>不下载 Llama / Gemma 门禁或特殊条款权重</li><li>不下载 70B+ / 671B / 1T 权重</li><li>不抓取训练网页语料</li><li>不安装、不训练、不启动服务</li><li>不把 vLLM CUDA wheel 作为默认（体积与驱动绑定）</li><li>sgl-kernel 只记 GitHub 地址（可选、体积大）</li></ul>
+<h2 id="镜像不完整-站点限制">镜像不完整（站点限制）</h2>
+<ul><li>Hugging Face <code>docs/transformers</code>：有限额 wget，约 174 页，不是全书</li><li>OpenAI / Anthropic 文档站以脚本渲染为主：本库保存官方 URL、OpenAI OpenAPI YAML 与 Python SDK README</li><li>SmolLM2 仓库无独立 <code>LICENSE</code> 文件（404）；许可以模型卡 / README 为准（Apache-2.0，公开确认来自卡面）</li></ul>
+<h2 id="运行时缺口">运行时缺口</h2>
+<ul><li>Windows llama.cpp 二进制未放入本专题，见 <a href="../llm_runtime_kits/runtimes/windows_x86_64/llama_cpp/REUSE_or_url_en.txt"><code>llm_runtime_kits/runtimes/windows_x86_64/llama_cpp/REUSE_or_url_en.txt</code></a></li><li>Windows GPU / CUDA 训练未覆盖</li></ul>
+<h2 id="评测数据">评测数据</h2>
+<ul><li>MMLU / HumanEval / GSM8K 全量试题未下，仅 README 与论文</li><li>多模态权重（VL）未下</li></ul>
+<h2 id="清单里的过期失败行">清单里的过期失败行</h2>
+<p><a href="../inventories/llm_download_failures_cn.csv"><code>inventories/llm_download_failures_cn.csv</code></a> 仍保留早先失败记录（例如 pip.pyz 一度缺失导致的 L03–L06 wheel <code>exit=2</code>）。<strong>以目录实况为准</strong>：上述 wheelhouse 已补齐；peft/trl 已有备用页。不要把旧 CSV 行当成当前缺口。</p>
+<h2 id="未验证">未验证</h2>
+<p>所有延迟、显存、质量分数、工具调用成功率均为 <strong>未运行验证</strong>。论文表格不是本机结果。</p>
+</body></html>

@@ -1,0 +1,8 @@
+$ /usr/bin/python3 /root/linux_python_offline_resources/scripts/pip.pyz download --dest /root/llm_lifecycle_resources/llm_runtime_kits/projects/L03_quant_compare/environments/py310_windows/wheelhouse --python-version 3.10 --implementation cp --abi cp310 --abi abi3 --abi none --only-binary :all: --cache-dir /root/llm_lifecycle_resources/state/pip_cache --disable-pip-version-check --timeout 120 --retries 4 --platform win_amd64 --platform any -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L03_quant_compare/environments/py310_windows/requirements_direct_en.txt
+Collecting numpy<3,>=1.26 (from -r /root/llm_lifecycle_resources/llm_runtime_kits/projects/L03_quant_compare/environments/py310_windows/requirements_direct_en.txt (line 1))
+  Using cached numpy-2.2.6-cp310-cp310-win_amd64.whl.metadata (60 kB)
+Using cached numpy-2.2.6-cp310-cp310-win_amd64.whl (12.9 MB)
+Saved ./llm_lifecycle_resources/llm_runtime_kits/projects/L03_quant_compare/environments/py310_windows/wheelhouse/numpy-2.2.6-cp310-cp310-win_amd64.whl
+Successfully downloaded numpy
+
+[exit 0]

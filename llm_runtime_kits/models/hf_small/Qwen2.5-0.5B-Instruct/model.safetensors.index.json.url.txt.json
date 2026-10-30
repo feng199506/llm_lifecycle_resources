@@ -1,0 +1,9 @@
+{
+  "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/resolve/main/model.safetensors.index.json?download=true",
+  "retrieved": "2026-10-30",
+  "downloaded": false,
+  "policy": "url_only_no_weight_file",
+  "repo": "Qwen/Qwen2.5-0.5B-Instruct",
+  "file": "model.safetensors.index.json",
+  "license": "Apache-2.0"
+}

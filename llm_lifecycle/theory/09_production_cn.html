@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>9 生产应用</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="09_production_cn.md">09_production_cn.md</a></div>
+<h1 id="9-生产应用">9 生产应用</h1>
+<p>Agent 循环、MCP、浏览器工具见 <code>/root/ai_agent_resources/</code>，此处只接生命周期。</p>
+<table><thead><tr><th>主题</th><th>公开确认</th><th>本库</th></tr></thead><tbody><tr><td>RAG</td><td><a href="../../_public/papers/llm/2005_11401_RAG.pdf" title="本地 PDF">2005.11401</a>；综述见 Agent 专题</td><td>L05 本地文档；hash 嵌入默认，bge 可选用 Agent 已下权重</td></tr><tr><td>检索与重排</td><td>bge 模型卡</td><td>可选用 <code>ai_agent_resources</code> 的 bge-reranker-base</td></tr><tr><td>Agent / 工具</td><td>各模型工具调用卡</td><td>L05 mock + 本地服务</td></tr><tr><td>提示与配置管理</td><td>工程实践</td><td>L06 <code>config/versions/</code></td></tr><tr><td>隐私与权限</td><td>法规与系统卡</td><td>示例只处理本地 fixture</td></tr><tr><td>提示注入</td><td>Agent 专题文献</td><td>防护清单，不附攻击载荷</td></tr><tr><td>监控追踪</td><td>OpenTelemetry 等</td><td>L06 <code>/metrics</code> Prometheus 文本</td></tr><tr><td>灰度与成本</td><td>工程实践</td><td>配置项；无真实流量</td></tr><tr><td>故障排查</td><td>日志字段</td><td><code>troubleshoot_cn.md</code></td></tr></tbody></table>
+<p>数据不得离开本机示例目录。不要把 mock 成功率写成模型能力。</p>
+</body></html>

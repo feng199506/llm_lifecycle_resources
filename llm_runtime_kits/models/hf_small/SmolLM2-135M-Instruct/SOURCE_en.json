@@ -1,0 +1,30 @@
+{
+  "repo": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "files": [
+    "config.json",
+    "generation_config.json",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "special_tokens_map.json",
+    "vocab.json",
+    "merges.txt",
+    "README.md",
+    "LICENSE"
+  ],
+  "weight_files": [
+    "model.safetensors"
+  ],
+  "dest": "hf_small/SmolLM2-135M-Instruct",
+  "license": "Apache-2.0",
+  "hw": "CPU 即可；权重约 270 MiB（卡面）。本专题不下载权重。",
+  "note": "L02 LoRA/SFT 主模型。开放权重，不是完整训练过程开源。",
+  "retrieved": "2026-10-30",
+  "sidecar_ok": true,
+  "downloaded_weights": false,
+  "weight_urls": [
+    {
+      "file": "model.safetensors",
+      "url": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/main/model.safetensors?download=true"
+    }
+  ]
+}

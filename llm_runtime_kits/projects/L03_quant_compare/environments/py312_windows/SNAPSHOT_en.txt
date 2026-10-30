@@ -1,0 +1,6 @@
+project=L03_quant_compare
+python=3.12
+platform=windows
+retrieved=2026-10-30
+note=测速走 llama.cpp 二进制，不强制 llama-cpp-python
+status=downloaded_only_not_installed

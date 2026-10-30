@@ -1,0 +1,4 @@
+﻿相对路径,内容,为何单独成包,许可说明
+_local_only/,OpenAI GPT-4/4o/o1/GPT-5 系统卡、Anthropic Claude 3/3.5/4 模型卡/系统卡（7 个 PDF + DO_NOT_PUBLISH.txt）,资料库作者标注仅供个人离线阅读；厂商公开发布但未授予再分发许可,厂商版权所有
+llm_lifecycle/docs_html/anthropic_api/,Anthropic API 文档 1 页镜像（已离线化）,官网文档未给出再分发许可,Anthropic 版权所有
+llm_lifecycle/docs_html/deepseek_api/,DeepSeek API 文档镜像 76 页（已离线化）,"页脚仅“Copyright © DeepSeek, Inc.”",DeepSeek 版权所有

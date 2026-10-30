@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>6 分布式与系统</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="06_distributed_cn.md">06_distributed_cn.md</a></div>
+<h1 id="6-分布式与系统">6 分布式与系统</h1>
+<p>训练项目 <strong>主要支持 Linux + GPU 集群</strong>。Windows 不作为 3D 并行训练平台。本轮不启动分布式作业。</p>
+<table><thead><tr><th>技术</th><th>文献/实现</th><th>作用</th></tr></thead><tbody><tr><td>数据并行</td><td>通用</td><td>每卡一份模型，切 batch</td></tr><tr><td>张量并行</td><td>Megatron-LM <a href="../../_public/papers/llm/1909_08053_MegatronLM.pdf" title="本地 PDF">1909.08053</a></td><td>切矩阵</td></tr><tr><td>流水线并行</td><td>GPipe <a href="../../_public/papers/llm/1811_06965_GPipe.pdf" title="本地 PDF">1811.06965</a></td><td>切层</td></tr><tr><td>专家并行</td><td>GShard <a href="../../_public/papers/llm/2006_16668_GShard.pdf" title="本地 PDF">2006.16668</a>、MoE 论文</td><td>切专家</td></tr><tr><td>ZeRO</td><td><a href="../../_public/papers/llm/1910_02054_ZeRO.pdf" title="本地 PDF">1910.02054</a> / DeepSpeed</td><td>切优化器状态与梯度</td></tr><tr><td>FSDP</td><td>PyTorch 文档</td><td>ZeRO-3 类</td></tr></tbody></table>
+<p>通信（NCCL）、激活重计算、故障恢复见 DeepSpeed/Megatron 源码包与文档镜像。GPU 利用率数字若无本机 nsys 记录，不得填写。</p>
+<p>源码：<code>implementations/</code> 中 DeepSpeed、Megatron-LM、verl、OpenRLHF tarball。</p>
+</body></html>

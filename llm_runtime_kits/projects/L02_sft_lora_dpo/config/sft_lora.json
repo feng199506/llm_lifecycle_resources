@@ -1,0 +1,12 @@
+{
+  "model_dir": "../../../models/hf_small/SmolLM2-135M-Instruct",
+  "train_file": "fixtures/sft.jsonl",
+  "output_dir": "work/lora",
+  "max_steps": 20,
+  "batch_size": 1,
+  "lr": 0.0002,
+  "lora_r": 8,
+  "lora_alpha": 16,
+  "max_seq": 256,
+  "platform_note": "Linux primary; not verified"
+}

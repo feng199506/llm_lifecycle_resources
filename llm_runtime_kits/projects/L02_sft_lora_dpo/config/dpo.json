@@ -1,0 +1,10 @@
+{
+  "model_dir": "../../../models/hf_small/SmolLM2-135M-Instruct",
+  "adapter_dir": "work/lora",
+  "train_file": "fixtures/dpo.jsonl",
+  "output_dir": "work/dpo",
+  "max_steps": 10,
+  "beta": 0.1,
+  "batch_size": 1,
+  "max_seq": 256
+}

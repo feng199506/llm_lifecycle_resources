@@ -1,0 +1,6 @@
+project=L01_tiny_transformer
+python=3.10
+platform=linux
+retrieved=2026-10-30
+note=
+status=downloaded_only_not_installed

@@ -1,0 +1,34 @@
+{
+  "repo": "Qwen/Qwen2.5-0.5B-Instruct",
+  "files": [
+    "config.json",
+    "generation_config.json",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "vocab.json",
+    "merges.txt",
+    "README.md",
+    "LICENSE"
+  ],
+  "weight_files": [
+    "model.safetensors",
+    "model.safetensors.index.json"
+  ],
+  "dest": "hf_small/Qwen2.5-0.5B-Instruct",
+  "license": "Apache-2.0",
+  "hw": "HF 权重约 1 GiB（卡面）。本专题不下载权重。",
+  "note": "只保存配置、分词器和权重 URL。",
+  "retrieved": "2026-10-30",
+  "sidecar_ok": true,
+  "downloaded_weights": false,
+  "weight_urls": [
+    {
+      "file": "model.safetensors",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/resolve/main/model.safetensors?download=true"
+    },
+    {
+      "file": "model.safetensors.index.json",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/resolve/main/model.safetensors.index.json?download=true"
+    }
+  ]
+}

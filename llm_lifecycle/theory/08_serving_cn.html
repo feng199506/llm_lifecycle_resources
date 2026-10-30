@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>8 部署与服务</title>
+<style>body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1em;line-height:1.6;color:#222;background:#fff}table{border-collapse:collapse;margin:1em 0;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 8px;vertical-align:top}th{background:#f3f3f3}code{background:#f5f5f5;padding:0 3px}
+pre{background:#f5f5f5;padding:8px;overflow:auto}a{color:#0645ad}.muted{color:#888}.nav{font-size:14px;margin-bottom:1em}
+.box{background:#f7f9fc;border:1px solid #d8e0ea;padding:8px 14px;margin:1em 0}</style>
+</head><body>
+<div class="nav"><a href="../../index_cn.html">← 离线首页 index_cn.html</a> · 原文 <a href="08_serving_cn.md">08_serving_cn.md</a></div>
+<h1 id="8-部署与服务">8 部署与服务</h1>
+<h2 id="平台支持-本专题">平台支持（本专题）</h2>
+<table><thead><tr><th>环境</th><th>支持声明</th></tr></thead><tbody><tr><td>Linux x86-64 CPU</td><td>主路径：llama.cpp CPU 二进制 + 小 GGUF；项目 wheel 按 3.10/3.12 下载</td></tr><tr><td>Linux + NVIDIA GPU</td><td>可选：llama.cpp CUDA 包（复用 Agent 专题若已有）；vLLM/SGLang <strong>未安装</strong>，源码仅供阅读。驱动/CUDA/框架须匹配，见 <a href="../../llm_runtime_kits/COMPAT_cn.html"><code>llm_runtime_kits/COMPAT_cn.md</code></a></td></tr><tr><td>Windows x86-64 CPU</td><td>服务示例代码可看；wheel 若下载到 <code>windows/</code>。llama.cpp win-cpu 复用 Agent 专题</td></tr><tr><td>Windows GPU</td><td>不作为一等支持</td></tr><tr><td>macOS / ARM</td><td>未覆盖</td></tr></tbody></table>
+<h2 id="能力清单-代码已整理-未启动">能力清单（代码已整理，未启动）</h2>
+<p>L04：本地 OpenAI 兼容反向代理、SSE 流式、JSON schema 校验。<br>
+L06：限流、队列、版本号、回滚配置、日志字段。<br>
+容器：<a href="../../llm_runtime_kits/containers/"><code>llm_runtime_kits/containers/</code></a> 的 Dockerfile <strong>未构建</strong>。</p>
+<p>单卡/多卡：CPU 单进程；多卡张量并行属 GPU 可选文档。</p>
+</body></html>

@@ -1,0 +1,17 @@
+{
+  "url": "https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf?download=true",
+  "retrieved": "2026-10-30",
+  "downloaded": false,
+  "policy": "url_only_no_weight_file",
+  "id": "qwen25_3b_q4km",
+  "tier": "cpu_baseline",
+  "repo": "Qwen/Qwen2.5-3B-Instruct-GGUF",
+  "file": "qwen2.5-3b-instruct-q4_k_m.gguf",
+  "license": "Qwen Research（非 Apache-2.0）",
+  "hw": "CPU RAM 约 5–8 GiB；本机未测",
+  "fmt": "GGUF Q4_K_M",
+  "ctx": "常用 4k 试跑（未测）",
+  "dest": "cpu_baseline",
+  "public": false,
+  "alts": []
+}
